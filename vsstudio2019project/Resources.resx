@@ -117,61 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="baseline_close_black_48dp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAQpJREFUaEPt
-        mLENwkAQBB0QUhJdUAiFEFACBVAEASUREsAtaKUP3sb23/vvpR1pJewAz8gWSB6EEEII0RE729V2+B75
-        crSdfx/rAPmb7W172jwjIP+y4bsvOFEDynNeEak8V+VOnGzpRbDSiJw8jnG+Cp4Rm8sTj4hm8qQkork8
-        WRMRRp4siQgnT+ZEhJUnUxHh5clYRBfyJBeRLrQ8GYvoQh7knnns309sCMbkudAROflu7sSYPM7P+Z9o
-        ypQ8CRsxR56Ei1giT8JErJEnzSNK5EmzCA95snmEpzzZNOJuSy9UKk9yEXh55s7e9rB5ypM0Au+f8BKt
-        CojAnfCUJ4ioKi+EEEIIX4bhA+xxCl4rQ/yoAAAAAElFTkSuQmCC
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="baseline_close_black_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\baseline_close_black_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="baseline_control_camera_black_48dp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAPfSURBVHhe7ZyhjhRBFEVXIBAIBAKJQCKQ/AMCgUAikUgkn4BAIBFIBIJPQCD4ACQCgUQgEAh4
-        N9mbNJ3XU+9VVVfXwD3JzSZkq7b73JnpruoJF0IIIYQQQghxZjy9jDgAiP99GZUwmKV8lTAYTz6jEnbm
-        lHxGJexERD6jEjqTkc+ohE7UyGdUQiMt8hmVUEkP+YxKSNJTPqMSguwhn1EJBfaUz6iEDUbIZ1TCiquW
-        zxZP1qm8tXxY/VskGHPFIhbctGRKgHxIvGbJlIDfxRjhEC2B8km0BMkPUCphLZ+USpD8BFslbMknWyVI
-        fgXrEkryyboEyW+AJbyyROQTCH9nkfwOXL/8mQWFSb4QQhxD5qI5O2d3Li8s0dvG2eFt7dls4EF+9t59
-        Viif5zN9CUv5TM8SblgeWzDnR8uXy0DSG8sjS69bz7V8ZtoSPPlMawlYkL20/LJ48y/z0/LcUrt+AFvy
-        melKOCWfqS3hvuW7xZvzVL5a7lmylOQz05QQkc9kS8BJRl71W8G74aElSlQ+c3gJGflMtIQHFm98Nigh
-        8k7IymcOK6FGPoLP8hK3LD8s3via4OOodE3AiwIbeN74UoaXUCs/+up/bfHGtwQX5hK17wJkWAl7y79t
-        8ca3Bh9FEFxi6hL2lg+eWbw5egTrhAhTljBCPqg98UiwWIsyVQmj5ANcML25egRCM0xRwkj5wJurV7Bt
-        keXwEiDSm7wUFFeDN1ev4N2VBS+i0Q7+YvQBfLN4c/UINvAyHC6fjDyQTxZvnh7BOUSZRj4ZdUBYMHlz
-        9Ai2siNMJ5+MOLC7Fm98a7Cph+cJJaaVT0Yc4HuLN74lkT2o6eWTlgPFSrfEHUvLNvQ6eJ6Ahzol8A08
-        b3wpQ+WT2hJwT42xJZ5YvPHZoEg81CmB3dLIV+PXOUQ+yZYA+VjYRMHJefNkklkMbX0reyuHyifRErLy
-        Cd4JNR9HeJ6AhzpZoiVMIZ+USqiVT3BNyFyY8TwBD3VqKZUwlXyyVUKr/CW4RcU6AYu15YoZWwz4O7jA
-        43lCD7ZKmFI+WZfQU/4RrEuYWj5hCecun7CEs5BPUMK/IJ+0fMlLCCFEPbie1NIyVhi4kPP+PgPEY/cT
-        d2MqoRLKz96DQ/hyLaISKljLZ0olrOUzKiHBlnxmq4Qt+YxKCFCSz6xLKMlnVMIJovIZlhCVz6gEB/yX
-        ZRn5DErIyGdUggNkerL2yNZ15L9nRAmSX2DPEiQ/yB4lSH6SniVIfiU9SpD8RlpKkPxO1JQg+Z3JlCD5
-        OxEpQfJ35lQJkj8IrwTJH8yyBMk/CIiXfCGEEEIIIcQZcXHxB5ZNcdVti9CrAAAAAElFTkSuQmCC
-</value>
+  <data name="baseline_control_camera_black_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\baseline_control_camera_black_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="baseline_filter_list_black_48dp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAACpSURBVHhe7dgxikNBDETBf/9Le51N0iwIMTaNq+DFQgr1AAAAAAAAAAAAvL30b9eloTpdl4bq
-        dF0aqtN1aahO16WhOl2Xhup0XRqqEwAAAAB8TXpYNVUvLdVUvbRUU/XSUk3VS0s1VS8t1VS9tFRT9dJS
-        TQEAAADAz0gPskkspaNOYikddRJL6aiTWEpHncRSOuokltJRJ7GUjjoJAAAAAAAAAADgg57nD8MKO/0D
-        YbxhAAAAAElFTkSuQmCC
-</value>
+  <data name="baseline_filter_list_black_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\baseline_filter_list_black_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="baseline_maximize_black_48dp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAADRJREFUaEPt
-        zLENADAMw7D8/3T7gJdMzkACWjUAZ71jraVJs7U0abaWJs0AAAAAAAAA6mY+0/OPcee/ywkAAAAASUVO
-        RK5CYII=
-</value>
+  <data name="baseline_maximize_black_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\baseline_maximize_black_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="baseline_minimize_black_48dp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAADVJREFUaEPt
-        zcEJADAMA7Hsv3S7gJ8xtCDBvW8AAAAAAAAAnnfK1aXpZnVpulldmm4G8I2ZC3OAX6G/gmLQAAAAAElF
-        TkSuQmCC
-</value>
+  <data name="baseline_minimize_black_48dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\baseline_minimize_black_48dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="new_edge" xml:space="preserve">
     <value>Add new Connection</value>
