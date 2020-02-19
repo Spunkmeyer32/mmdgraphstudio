@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Collections;
 using System.IO;
+using System.Threading;
 
 namespace MMD_Graph_Studio
 {
@@ -30,6 +31,9 @@ namespace MMD_Graph_Studio
     private UInt64 newLinkNodeTarget = 0;
     private bool newLinkMode = false;
     private Point lastMouseLinkPosition = new Point(0, 0);
+
+    private Task layoutTask;
+    private CancellationToken layoutTaskCancellation = new CancellationToken();
 
     private MMDToolStripMenuItem newNodeContextItem = new MMDToolStripMenuItem();
     private MMDToolStripMenuItem newLinkContextItem = new MMDToolStripMenuItem();
@@ -52,6 +56,14 @@ namespace MMD_Graph_Studio
     public MainForm()
     {
       InitializeComponent();
+      this.panel3.MouseLeave += new EventHandler(this.MainForm_MouseLeave);
+      this.panel3.MouseUp += new MouseEventHandler(this.MainForm_MouseUp);
+      this.panel3.MouseDown += new MouseEventHandler(this.MainForm_MouseDown);
+      this.panel3.MouseMove += new MouseEventHandler(this.MainForm_MouseMove);
+      this.label1.MouseLeave += new EventHandler(this.MainForm_MouseLeave);
+      this.label1.MouseUp += new MouseEventHandler(this.MainForm_MouseUp);
+      this.label1.MouseDown += new MouseEventHandler(this.MainForm_MouseDown);
+      this.label1.MouseMove += new MouseEventHandler(this.MainForm_MouseMove);
       this.Text = String.Empty;
       initContextMenu();
       this.panelGraphPaint.MouseWheel += new MouseEventHandler(panelMouseWheel);
@@ -60,7 +72,7 @@ namespace MMD_Graph_Studio
       this.actualView.LoadGraphData(this.loadedGraph);
       this.actualView.CalculateBounds();
       this.graphPainter = new GraphPainter();
-
+      layoutTask = Task.Run((Action)this.layoutTaskMethod);
     }
 
     private void initContextMenu()
@@ -90,30 +102,18 @@ namespace MMD_Graph_Studio
       }
     }
 
-    private void button_force_Click(object sender, EventArgs e)
+    private void layoutTaskMethod()
     {
-      const double desiredFps = 500.0;
-      long ticks1 = 0;
-      int steps = 0;
-      var interval = Stopwatch.Frequency / desiredFps;
-      while (true)
+      Thread.CurrentThread.Priority = ThreadPriority.Lowest;
+      while (!layoutTaskCancellation.IsCancellationRequested)
       {
-        Application.DoEvents();
-        var ticks2 = Stopwatch.GetTimestamp();
-        if (ticks2 >= ticks1 + interval)
+        if (this.actualView != null && this.loadedGraph != null)
         {
-          steps++;
-          ticks1 = Stopwatch.GetTimestamp();
           this.actualView.forcePositioningIteration(this.loadedGraph);
           this.actualView.validatePositions();
-          this.actualView.CalculateBounds();
           this.panelGraphPaint.Invalidate();
         }
-        if (steps > 300)
-        {
-          this.actualView.validatePositions();
-          break;
-        }
+        Thread.Sleep(16);
       }
     }
 
@@ -122,7 +122,6 @@ namespace MMD_Graph_Studio
       this.mouseDragMotion = false;
       Point graphPoint = this.graphPainter.getGraphCoordinate(e.Location, this.actualView);
       UInt64 hitNode = this.actualView.getNodeAtPosition(graphPoint);
-
       if (this.newLinkMode)
       {
         if (hitNode != 0)
@@ -149,7 +148,6 @@ namespace MMD_Graph_Studio
           this.draggedNode = 0;
         }
       }
-
     }
 
     private void panel_MouseMove(object sender, MouseEventArgs e)
@@ -167,7 +165,7 @@ namespace MMD_Graph_Studio
           {
             //animate
             Point graphPoint = this.graphPainter.getGraphCoordinate(e.Location, this.actualView);
-
+            this.actualView.setNodeFixedStatus(this.draggedNode, true);
             this.actualView.setNodePosition(draggedNode, graphPoint);
             this.panelGraphPaint.Invalidate();
           }
@@ -219,6 +217,10 @@ namespace MMD_Graph_Studio
             this.newLinkNodeTarget = 0;
             newLink = true;
           }
+          else
+          {
+            this.actualView.setNodeFixedStatus(this.draggedNode, false);
+          }
         }
         if (newNode || newLink)
         {
@@ -233,7 +235,6 @@ namespace MMD_Graph_Studio
       }
     }
 
-
     private void button_save_Click(object sender, EventArgs e)
     {
       string targetfile = null;
@@ -243,7 +244,6 @@ namespace MMD_Graph_Studio
         fd.ShowDialog();
         targetfile = fd.FileName;
       }
-
       if (targetfile != null && targetfile.Length > 4)
       {
         ArrayList graphViews = new ArrayList();
@@ -289,8 +289,6 @@ namespace MMD_Graph_Studio
           }
           this.actualView.CalculateBounds();
           this.panelGraphPaint.Invalidate();
-
-
           statusLabel.Text = "File is loaded. Ready.";
         }
         else
@@ -399,26 +397,6 @@ namespace MMD_Graph_Studio
       this.formdragging = false;
     }
 
-    private void label1_MouseDown(object sender, MouseEventArgs e)
-    {
-      this.MainForm_MouseDown(sender, e);
-    }
-
-    private void label1_MouseMove(object sender, MouseEventArgs e)
-    {
-      this.MainForm_MouseMove(sender, e);
-    }
-
-    private void label1_MouseUp(object sender, MouseEventArgs e)
-    {
-      this.MainForm_MouseUp(sender, e);
-    }
-
-    private void toolStripMenuItem1_Click(object sender, EventArgs e)
-    {
-
-    }
-
     private void toolStripMenuItem_max_Click(object sender, EventArgs e)
     {
       if (this.WindowState == FormWindowState.Maximized)
@@ -441,9 +419,5 @@ namespace MMD_Graph_Studio
       this.Close();
     }
 
-    private void button_newfilter_Click(object sender, EventArgs e)
-    {
-
-    }
   }
 }

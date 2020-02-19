@@ -78,8 +78,8 @@ namespace MMD_Graph_Studio
       {
         return;
       }
-      this.position.X += (int)(Math.Ceiling(this.MovementVector.X * 0.05));
-      this.position.Y += (int)(Math.Ceiling(this.MovementVector.Y * 0.05));
+      this.position.X += (int)(Math.Round(this.MovementVector.X * 0.02));
+      this.position.Y += (int)(Math.Round(this.MovementVector.Y * 0.02));
     }
 
     internal void setPosition(Point graphPoint)

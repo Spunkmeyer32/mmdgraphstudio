@@ -30,7 +30,6 @@
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-      this.button2 = new System.Windows.Forms.Button();
       this.button_store = new System.Windows.Forms.Button();
       this.button_load = new System.Windows.Forms.Button();
       this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -71,21 +70,6 @@
       this.panel_filters.SuspendLayout();
       this.panel_panelchooser.SuspendLayout();
       this.SuspendLayout();
-      // 
-      // button2
-      // 
-      this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-      this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.button2.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button2.Location = new System.Drawing.Point(0, 49);
-      this.button2.Margin = new System.Windows.Forms.Padding(0);
-      this.button2.Name = "button2";
-      this.button2.Size = new System.Drawing.Size(125, 43);
-      this.button2.TabIndex = 2;
-      this.button2.TabStop = false;
-      this.button2.Text = "AutoLayout";
-      this.button2.UseVisualStyleBackColor = false;
-      this.button2.Click += new System.EventHandler(this.button_force_Click);
       // 
       // button_store
       // 
@@ -169,7 +153,6 @@
       // panel1
       // 
       this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      this.panel1.Controls.Add(this.button2);
       this.panel1.Controls.Add(this.button_store);
       this.panel1.Controls.Add(this.button_newgraph);
       this.panel1.Controls.Add(this.button_load);
@@ -252,9 +235,6 @@
       this.label1.TabIndex = 11;
       this.label1.Text = "MMD Graph Studio";
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
-      this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
-      this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
       // 
       // contextMenuStrip_MainApp
       // 
@@ -378,7 +358,6 @@
       this.button_newfilter.TabIndex = 1;
       this.button_newfilter.Text = "New";
       this.button_newfilter.UseVisualStyleBackColor = true;
-      this.button_newfilter.Click += new System.EventHandler(this.button_newfilter_Click);
       // 
       // listBox_filters
       // 
@@ -460,7 +439,6 @@
     #endregion
 
     private DoubleBufferedPanel panelGraphPaint;
-    private System.Windows.Forms.Button button2;
     private System.Windows.Forms.Button button_store;
     private System.Windows.Forms.Button button_load;
     private System.Windows.Forms.StatusStrip statusStrip;

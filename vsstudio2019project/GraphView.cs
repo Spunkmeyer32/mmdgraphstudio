@@ -21,6 +21,10 @@ namespace MMD_Graph_Studio
 
     private NodeFilter currentNodeFilter = null;
 
+    private static float desiredDistanceEdge = 80.0f;
+    private static float desiredDistanceUnconnected = 110.0f;
+    private static float desiredDistance = 60.0f;
+
     public GraphView()
     {
 
@@ -28,14 +32,14 @@ namespace MMD_Graph_Studio
 
     public IReadOnlyDictionary<UInt64, GraphPointData> GetPositionsReadOnly()
     {
-      if(this.currentNodeFilter != null)
+      if (this.currentNodeFilter != null)
       {
         return new ReadOnlyDictionary<UInt64, GraphPointData>(this.nodePositions);
       }
       else
       {
         return new ReadOnlyDictionary<UInt64, GraphPointData>(this.nodePositions);
-      }      
+      }
     }
 
     public void applyNodeFilter(NodeFilter filter)
@@ -165,65 +169,66 @@ namespace MMD_Graph_Studio
       this.heightBound = (maxY - this.topBound) + 150;
     }
 
+    internal void setNodeFixedStatus(ulong draggedNode, bool v)
+    {
+      if (this.nodePositions.ContainsKey(draggedNode))
+      {
+        this.nodePositions[draggedNode].fixedPosition = v;
+      }
+    }
+
+    private ArrayList lastTouchedPositionsInLayouting = new ArrayList();
+    private Vector2D layoutNodeDirection = new Vector2D(0.0, 0.0);
+
 
     public void validatePositions()
     {
-      const float desiredDistance = 65.0f;
-      
+      lastTouchedPositionsInLayouting.Clear();
       foreach (KeyValuePair<UInt64, GraphPointData> pair in this.nodePositions)
       {
         foreach (KeyValuePair<UInt64, GraphPointData> innerPair in this.nodePositions)
         {
           if (pair.Key != innerPair.Key)
           {
-            Vector2D direction = new Vector2D(innerPair.Value.X - pair.Value.X, innerPair.Value.Y - pair.Value.Y);
-            double len = Math.Abs(direction.Length);  
-            if(len < desiredDistance)
+            layoutNodeDirection = new Vector2D(innerPair.Value.X - pair.Value.X, innerPair.Value.Y - pair.Value.Y);
+            if (layoutNodeDirection.Length < desiredDistance)
             {
-              double scalefactor = desiredDistance / len;
-              if(scalefactor > 20.0)
-              {
-                scalefactor = 20.0;
-              }
-              direction = direction.ScaleBy(scalefactor);
-              double len2 = Math.Abs(direction.Length);
-              
-
+              layoutNodeDirection = layoutNodeDirection.ScaleBy(((desiredDistance / layoutNodeDirection.Length) - 1.0) * 0.2 + 1.0);
               if (pair.Value.fixedPosition)
               {
-                if(innerPair.Value.fixedPosition)
+                if (innerPair.Value.fixedPosition)
                 {
-                  Console.WriteLine("Both nodes fixed already!");
                   continue;
                 }
                 else
                 {
                   // move inner
-                  innerPair.Value.setPosition(new Point((int)(pair.Value.X-direction.X), (int)(pair.Value.Y-direction.Y)));
+                  innerPair.Value.setPosition(new Point((int)(pair.Value.X + layoutNodeDirection.X), (int)(pair.Value.Y + layoutNodeDirection.Y)));
                   innerPair.Value.fixedPosition = true;
+                  lastTouchedPositionsInLayouting.Add(innerPair.Value);
                 }
               }
               else
               {
                 // move outer
-                direction = direction.ScaleBy(desiredDistance / len);
-                pair.Value.setPosition(new Point((int)(innerPair.Value.X - direction.X), (int)(innerPair.Value.Y - direction.Y)));
+                pair.Value.setPosition(new Point((int)(innerPair.Value.X - layoutNodeDirection.X), (int)(innerPair.Value.Y - layoutNodeDirection.Y)));
                 pair.Value.fixedPosition = true;
+                lastTouchedPositionsInLayouting.Add(pair.Value);
               }
             }
           }
         }
       }
-      foreach (KeyValuePair<UInt64, GraphPointData> pair in this.nodePositions)
+      foreach (GraphPointData position in lastTouchedPositionsInLayouting)
       {
-        pair.Value.fixedPosition = false;
+        position.fixedPosition = false;
       }
     }
 
+    
+
     public void forcePositioningIteration(Graph graph)
-    {
-      const float desiredDistanceEdge = 100.0f;
-      const float desiredDistanceUnconnected = 150.0f;
+    {      
       foreach (KeyValuePair<UInt64, GraphPointData> pair in this.nodePositions)
       {
         Vector2D nodeForce = new Vector2D(0, 0);
@@ -239,11 +244,11 @@ namespace MMD_Graph_Studio
               double scale = len - desiredDistanceEdge;
               if (scale < 0)
               {
-                direction = direction.ScaleBy(scale * 0.01);
+                direction = direction.ScaleBy(scale * 0.015);
               }
               else
               {
-                direction = direction.ScaleBy(scale * 0.004);
+                direction = direction.ScaleBy(scale * 0.007);
               }
             }
             else
@@ -251,17 +256,24 @@ namespace MMD_Graph_Studio
               double scale = len - desiredDistanceUnconnected;
               if (scale < 0)
               {
-                direction = direction.ScaleBy(scale * 0.005);
+                direction = direction.ScaleBy(scale * 0.009);
               }
               else
               {
-                direction = direction.ScaleBy(scale * 0.0000001);
+                direction = direction.ScaleBy(scale * 0.000001);
               }
             }
             nodeForce = nodeForce.Add(direction);
           }
         }
-        pair.Value.MovementVector = nodeForce;
+        if (nodeForce.Length > 0.000000000001f)
+        {
+          pair.Value.MovementVector = nodeForce;
+        }
+        else
+        {
+          pair.Value.MovementVector = new Vector2D(0.0, 0.0);
+        }
       }
       foreach (KeyValuePair<UInt64, GraphPointData> pair in this.nodePositions)
       {
@@ -328,9 +340,9 @@ namespace MMD_Graph_Studio
             pair.Value.X <= this.leftBound + this.widthBound &&
             pair.Value.Y <= this.topBound + this.heightBound)
         {
-          if(this.currentNodeFilter != null)
+          if (this.currentNodeFilter != null)
           {
-            if(this.currentNodeFilter.matchNode(graph.getNode(pair.Key)))
+            if (this.currentNodeFilter.matchNode(graph.getNode(pair.Key)))
             {
               visibleNodes.Add(pair.Key, pair.Value);
             }
@@ -339,7 +351,7 @@ namespace MMD_Graph_Studio
           {
             visibleNodes.Add(pair.Key, pair.Value);
           }
-          
+
         }
       }
       return visibleNodes;

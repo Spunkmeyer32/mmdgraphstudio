@@ -65,6 +65,22 @@ namespace MMD_Graph_Studio
       float topBound = view.GetTopBound();
       float nodeWidth = 40.0f * ((this.lastDrawnScaleWidth + this.lastDrawnScaleHeight) / 2);
       float nodeHeight = 40.0f * ((this.lastDrawnScaleWidth + this.lastDrawnScaleHeight) / 2);
+      if(nodeWidth < 5.0f)
+      {
+        nodeWidth = 5.0f;
+      }
+      if(nodeHeight < 5.0f)
+      {
+        nodeHeight = 5.0f;
+      }
+      if(nodeWidth > 300.0f)
+      {
+        nodeWidth = 300.0f;
+      }
+      if(nodeHeight > 300.0f)
+      {
+        nodeHeight = 300.0f;
+      }
       RectangleF rect = new RectangleF();
       IReadOnlyDictionary<UInt64, GraphPointData> visibleNodes = view.getVisibleNodes(graph);
       ArrayList drawnEdges = new ArrayList();
