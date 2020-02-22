@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
 using System.Collections;
 using System.IO;
 using System.Threading;
@@ -56,6 +50,13 @@ namespace MMD_Graph_Studio
     public MainForm()
     {
       InitializeComponent();
+      this.initCustomGuiElements();
+      this.initData();
+      layoutTask = Task.Run((Action)this.layoutTaskMethod);
+    }
+
+    private void initCustomGuiElements()
+    {
       this.panel3.MouseLeave += new EventHandler(this.MainForm_MouseLeave);
       this.panel3.MouseUp += new MouseEventHandler(this.MainForm_MouseUp);
       this.panel3.MouseDown += new MouseEventHandler(this.MainForm_MouseDown);
@@ -67,12 +68,15 @@ namespace MMD_Graph_Studio
       this.Text = String.Empty;
       initContextMenu();
       this.panelGraphPaint.MouseWheel += new MouseEventHandler(panelMouseWheel);
+    }
+
+    private void initData()
+    {
       this.loadedGraph = new Graph();
       this.actualView = new GraphView();
       this.actualView.LoadGraphData(this.loadedGraph);
       this.actualView.CalculateBounds();
       this.graphPainter = new GraphPainter();
-      layoutTask = Task.Run((Action)this.layoutTaskMethod);
     }
 
     private void initContextMenu()
@@ -105,15 +109,28 @@ namespace MMD_Graph_Studio
     private void layoutTaskMethod()
     {
       Thread.CurrentThread.Priority = ThreadPriority.Lowest;
+      int waitms = 10;
       while (!layoutTaskCancellation.IsCancellationRequested)
       {
         if (this.actualView != null && this.loadedGraph != null)
         {
-          this.actualView.forcePositioningIteration(this.loadedGraph);
-          this.actualView.validatePositions();
-          this.panelGraphPaint.Invalidate();
+          if(this.actualView.forcePositioningIteration(this.loadedGraph))
+          {
+            //this.actualView.validatePositions();
+            this.panelGraphPaint.Invalidate();
+            waitms = 20;
+          }
+          else
+          {
+            Console.WriteLine("no mov");
+            waitms = 100;
+          }
         }
-        Thread.Sleep(16);
+        else
+        {
+          waitms = 250;
+        }
+        Thread.Sleep(waitms);
       }
     }
 

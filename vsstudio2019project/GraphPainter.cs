@@ -59,7 +59,8 @@ namespace MMD_Graph_Studio
     {
       this.lastDrawnScaleWidth = g.VisibleClipBounds.Width / view.GetWidthBound();
       this.lastDrawnScaleHeight = g.VisibleClipBounds.Height / view.GetHeightBound();
-      Brush pn = new SolidBrush(Color.FromArgb(100,100,100));
+      Brush pn = new SolidBrush(Color.FromArgb(100, 100, 100));
+      Brush tb = new SolidBrush(Color.FromArgb(180, 180, 255));
       Pen edgePen = Pens.LightBlue;
       float leftBound = view.GetLeftBound();
       float topBound = view.GetTopBound();
@@ -128,8 +129,8 @@ namespace MMD_Graph_Studio
           g.FillPath(shadowBrush, shadowPath);
         }
         g.FillPath(pn, nodePath);
-        
-        TextRenderer.DrawText(g, graph.getNodeName(pair.Key), nodeFont, new Rectangle((int)rect.X, (int)rect.Y-10, (int)rect.Width+200, (int)rect.Height+20), Color.FromArgb(180,180, 255), flags);
+        g.DrawString(graph.getNodeName(pair.Key), nodeFont, tb, new Point((int)rect.X, (int)rect.Y - nodeFont.Height/2+  (int)(rect.Height / 2.0)));
+        //TextRenderer.DrawText(g, graph.getNodeName(pair.Key), nodeFont, new Rectangle((int)rect.X, (int)rect.Y-10, (int)rect.Width+200, (int)rect.Height+20), Color.FromArgb(180,180, 255), flags);
       }
     }
 

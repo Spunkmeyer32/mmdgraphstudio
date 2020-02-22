@@ -3,50 +3,149 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MMD_Graph_Studio
 {
-  class Graph
+  class Graph : IDisposable
   {
+    private bool disposed = false;
     private Dictionary<UInt64, Node> nodes;
     private ArrayList edges;
+    private Dictionary<UInt64, ArrayList> nodeEdges;
+
+    private Mutex edgeDataMutex = new Mutex(false, "edgeData");
+    private Mutex nodeDataMutex = new Mutex(false, "nodeData");
+    private Mutex nodeEdgesDataMutex = new Mutex(false, "nodeEdgesData");
 
     public Graph()
     {
       IDGenerator.StartAt(1);
       this.nodes = new Dictionary<ulong, Node>();
       this.edges = new ArrayList();
+      this.nodeEdges = new Dictionary<ulong, ArrayList>();
     }
 
     public void Clear()
     {
-      this.nodes.Clear();
-      this.edges.Clear();
+      this.nodeDataMutex.WaitOne();
+      try
+      {
+        this.nodes.Clear();
+      }
+      finally
+      {
+        this.nodeDataMutex.ReleaseMutex();
+      }
+
+      this.edgeDataMutex.WaitOne();
+      try
+      {
+        this.edges.Clear();
+      }
+      finally
+      {
+        this.edgeDataMutex.ReleaseMutex();
+      }
+
+      this.nodeEdgesDataMutex.WaitOne();
+      try
+      {
+        foreach(KeyValuePair<UInt64,ArrayList> pair in this.nodeEdges)
+        {
+          pair.Value.Clear();
+        }
+        this.nodeEdges.Clear();
+      }
+      finally
+      {
+        this.nodeEdgesDataMutex.ReleaseMutex();
+      }
     }
 
     public UInt64 AddNewNode(String name)
     {
       Node nodeToAdd = new Node(name);
-      this.nodes.Add(nodeToAdd.GetID(), nodeToAdd);
+      this.nodeDataMutex.WaitOne();
+      try
+      {
+        this.nodes.Add(nodeToAdd.GetID(), nodeToAdd);
+      }
+      finally
+      {
+        this.nodeDataMutex.ReleaseMutex();
+      }
+      this.nodeEdgesDataMutex.WaitOne();
+      try
+      {
+        this.nodeEdges.Add(nodeToAdd.GetID(), new ArrayList());
+      }
+      finally
+      {
+        this.nodeEdgesDataMutex.ReleaseMutex();
+      }
       return nodeToAdd.GetID();
     }
 
     public void AddNode(Node node)
     {
-      if (this.nodes.ContainsKey(node.GetID()))
+      this.nodeDataMutex.WaitOne();
+      try
       {
-        this.nodes[node.GetID()] = node;
+        if (this.nodes.ContainsKey(node.GetID()))
+        {
+          this.nodes[node.GetID()] = node;
+        }
+        else
+        {
+          this.nodes.Add(node.GetID(), node);
+          this.nodeEdgesDataMutex.WaitOne();
+          try
+          {
+            this.nodeEdges.Add(node.GetID(), new ArrayList());
+          }
+          finally
+          {
+            this.nodeEdgesDataMutex.ReleaseMutex();
+          }
+        }
       }
-      else
+      finally
       {
-        this.nodes.Add(node.GetID(), node);
+        this.nodeDataMutex.ReleaseMutex();
       }
     }
 
     public void AddEdge(Edge edge)
     {
-      this.edges.Add(edge);
+      this.edgeDataMutex.WaitOne();
+      try
+      {
+        this.edges.Add(edge);
+      }
+      finally
+      {
+        this.edgeDataMutex.ReleaseMutex();
+      }
+      this.nodeEdgesDataMutex.WaitOne();
+      try
+      {
+        if (!this.nodeEdges.ContainsKey(edge.GetLeftNode()))
+        {
+          this.nodeEdges.Add(edge.GetLeftNode(), new ArrayList());
+        }
+        this.nodeEdges[edge.GetLeftNode()].Add(edge);
+        if (!this.nodeEdges.ContainsKey(edge.GetRightNode()))
+        {
+          this.nodeEdges.Add(edge.GetRightNode(), new ArrayList());
+        }
+        this.nodeEdges[edge.GetRightNode()].Add(edge);
+      }
+      finally
+      {
+        this.nodeEdgesDataMutex.ReleaseMutex();
+      }
     }
 
     public String getNodeName(UInt64 nodeID)
@@ -61,69 +160,139 @@ namespace MMD_Graph_Studio
     public ArrayList GetConnectedEdges(UInt64 nodeID, NodeFilter filter = null)
     {
       ArrayList connected = new System.Collections.ArrayList();
-      foreach (Edge edge in this.edges)
+      this.nodeEdgesDataMutex.WaitOne();
+      try
       {
-        if (edge.GetLeftNode() == nodeID)
+        if(this.nodeEdges.ContainsKey(nodeID))
         {
           if (filter != null)
           {
-            if (filter.matchNode(this.nodes[edge.GetRightNode()]))
+            ArrayList edgelist = this.nodeEdges[nodeID];
+            foreach (Edge edge in edgelist)
             {
-              connected.Add(edge);
-            }
+              if(edge.GetLeftNode() == nodeID)
+              {
+                if (filter.matchNode(this.nodes[edge.GetRightNode()]))
+                {
+                  connected.Add(edge);
+                }
+              }
+              else
+              {
+                if (filter.matchNode(this.nodes[edge.GetLeftNode()]))
+                {
+                  connected.Add(edge);
+                }
+              }              
+            }            
           }
           else
           {
-            connected.Add(edge);
+            connected.AddRange(this.nodeEdges[nodeID]);
           }
         }
-        if (edge.GetRightNode() == nodeID)
-        {
-          if (filter != null)
-          {
-            if (filter.matchNode(this.nodes[edge.GetLeftNode()]))
-            {
-              connected.Add(edge);
-            }
-          }
-          else
-          {
-            connected.Add(edge);
-          }
-        }
+      }
+      finally
+      {
+        this.nodeEdgesDataMutex.ReleaseMutex();
       }
       return ArrayList.ReadOnly(connected);
     }
 
     public Edge GetNodeConnection(UInt64 leftNode, UInt64 rightNode)
     {
-      foreach (Edge edge in this.edges)
+      this.nodeEdgesDataMutex.WaitOne();
+      try
       {
-        if ((edge.GetLeftNode() == leftNode && edge.GetRightNode() == rightNode) || (edge.GetLeftNode() == rightNode && edge.GetRightNode() == leftNode))
+        if(this.nodeEdges.ContainsKey(leftNode))
         {
-          return edge;
+          ArrayList edgelist = this.nodeEdges[leftNode];
+          foreach(Edge edge in edgelist)
+          {
+            if(edge.connectsNodes(leftNode,rightNode))
+            {
+              return edge;
+            }
+          }
         }
+      }
+      finally
+      {
+        this.nodeEdgesDataMutex.ReleaseMutex();
       }
       return null;
     }
 
     public IReadOnlyCollection<Node> GetNodesReadOnly()
     {
-      return Array.AsReadOnly<Node>(this.nodes.Values.ToArray<Node>());
+      this.nodeDataMutex.WaitOne();
+      try
+      {
+        return Array.AsReadOnly<Node>(this.nodes.Values.ToArray<Node>());
+      }
+      finally
+      {
+        this.nodeDataMutex.ReleaseMutex();
+      }
     }
 
     public ArrayList GetEdgesReadOnly()
     {
-      return ArrayList.ReadOnly(this.edges);
+      this.edgeDataMutex.WaitOne();
+      try
+      {
+        return ArrayList.ReadOnly(this.edges);
+      }
+      finally
+      {
+        this.edgeDataMutex.ReleaseMutex();
+      }
     }
 
     internal Node getNode(ulong key)
     {
-      if(this.nodes.ContainsKey(key))
+      this.nodeDataMutex.WaitOne();
+      try
       {
-        return this.nodes[key];
+        if (this.nodes.ContainsKey(key))
+        {
+          return this.nodes[key];
+        }
+      }
+      finally
+      {
+        this.nodeDataMutex.ReleaseMutex();
       }
       return null;
     }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (disposed)
+      {
+        return;
+      }
+      if (disposing)
+      {
+        this.Clear();
+        this.nodeDataMutex.Dispose();
+        this.edgeDataMutex.Dispose();
+        this.nodeEdgesDataMutex.Dispose();
+      }
+      // free native stuff
+      disposed = true;
+    }
+
+    ~Graph()
+    {
+      Dispose(false);
+    }
   }
+
 }
