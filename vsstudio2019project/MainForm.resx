@@ -127,6 +127,27 @@
     <value>316, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="panel_filterview_in.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAwAAAAdCAYAAACe/43ZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAC
+        AAAAAgABfn7T4wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADhSURBVDhPtZQx
+        CgIxEEWDthaeQfAMlhbewt5CT7Fg60m2sXNnwkIOYGPnHdQkayUoGBMdcF2jZgoffNjN/M8ym0wEopkK
+        DgjmIotqRK+/8QHnpaU89mnpOxQI2iplu7T8mVrAARjIc9emUpx6IEiCXVApTjMQBKAnVH4nFvA6y5Ud
+        kuWViPku38++LKse2Z7EzDVtlNp1yPogYmpqmWWuRfakgEPUc7InBsBcfU9jTiDohHgYcAIOC73+2xeY
+        PTD/Emsf0neae5Z4p5U1D6yJ484069Zg3UvMm68wM3pMQIgbPZiCjhxDvooAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="panel_filterview_out.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAwAAAAdCAYAAACe/43ZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAC
+        AAAAAgABfn7T4wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADtSURBVDhPlZRN
+        CsIwEEaraz2DeAWXgrdw776n6MKtB3FZpHTGTQ/gRvASYmnSjaAb44RmsISkdR580GTe0L8kiQQsVeou
+        xwFQGwT1dsNhENslNdTUYNxUnDyv5yTerDzakGVmStKJ5dEGAH3oy4MNiHrny9EGxGZNxZcv2zjlR1Ho
+        BYK+h2Qbp3VU1WNGk1df6sepSWKMmZxBHUNSP06n5wa194uhdDI2Wxp8/GIo9K3bFV08/UIstAKbS6gQ
+        i/wO4ndgaPD/V7KI/4NF9KcZ0VpiRKuVEe0HRrTjLOI9bRGdGozoXGJEJx+DpUq/kTCDB0w/lBQAAAAA
+        SUVORK5CYII=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAkAICAQAAEABADoAgAAlgAAABAQEAABAAQAKAEAAH4DAAAwMAAAAQAIAKgOAACmBAAAICAAAAEA

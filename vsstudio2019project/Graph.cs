@@ -52,7 +52,7 @@ namespace MMD_Graph_Studio
       this.nodeEdgesDataMutex.WaitOne();
       try
       {
-        foreach(KeyValuePair<UInt64,ArrayList> pair in this.nodeEdges)
+        foreach (KeyValuePair<UInt64, ArrayList> pair in this.nodeEdges)
         {
           pair.Value.Clear();
         }
@@ -87,6 +87,66 @@ namespace MMD_Graph_Studio
       }
       return nodeToAdd.GetID();
     }
+
+    internal void removeNode(UInt64 nodeToRemove)
+    {
+      this.nodeDataMutex.WaitOne();
+      try
+      {
+        if (this.nodes.ContainsKey(nodeToRemove))
+        {
+          this.nodes.Remove(nodeToRemove);
+          this.nodeEdgesDataMutex.WaitOne();
+          try
+          {
+            if(this.nodeEdges.ContainsKey(nodeToRemove))
+            {
+              ArrayList edgesToRemove = this.nodeEdges[nodeToRemove];
+              this.edgeDataMutex.WaitOne();
+              try
+              {
+                foreach (Edge edge in edgesToRemove)
+                {
+                  UInt64 otherID = 0;
+                  this.edges.Remove(edge);
+                  if(edge.GetLeftNode() == nodeToRemove)
+                  {
+                    otherID = edge.GetRightNode();
+                  }
+                  else
+                  {
+                    otherID = edge.GetLeftNode();
+                  }
+                  ArrayList edgesToCheck = this.nodeEdges[otherID];
+                  foreach (Edge checkEdge in edgesToCheck)
+                  {
+                    if (checkEdge == edge)
+                    {
+                      edgesToCheck.Remove(edge);
+                      break;
+                    }
+                  }
+                }
+              }
+              finally
+              {
+                this.edgeDataMutex.ReleaseMutex();
+              }
+              this.nodeEdges.Remove(nodeToRemove);
+            }
+          }
+          finally
+          {
+            this.nodeEdgesDataMutex.ReleaseMutex();
+          }
+        }
+      }
+      finally
+      {
+        this.nodeDataMutex.ReleaseMutex();
+      }
+    }
+
 
     public void AddNode(Node node)
     {
@@ -163,14 +223,14 @@ namespace MMD_Graph_Studio
       this.nodeEdgesDataMutex.WaitOne();
       try
       {
-        if(this.nodeEdges.ContainsKey(nodeID))
+        if (this.nodeEdges.ContainsKey(nodeID))
         {
           if (filter != null)
           {
             ArrayList edgelist = this.nodeEdges[nodeID];
             foreach (Edge edge in edgelist)
             {
-              if(edge.GetLeftNode() == nodeID)
+              if (edge.GetLeftNode() == nodeID)
               {
                 if (filter.matchNode(this.nodes[edge.GetRightNode()]))
                 {
@@ -183,8 +243,8 @@ namespace MMD_Graph_Studio
                 {
                   connected.Add(edge);
                 }
-              }              
-            }            
+              }
+            }
           }
           else
           {
@@ -204,12 +264,12 @@ namespace MMD_Graph_Studio
       this.nodeEdgesDataMutex.WaitOne();
       try
       {
-        if(this.nodeEdges.ContainsKey(leftNode))
+        if (this.nodeEdges.ContainsKey(leftNode))
         {
           ArrayList edgelist = this.nodeEdges[leftNode];
-          foreach(Edge edge in edgelist)
+          foreach (Edge edge in edgelist)
           {
-            if(edge.connectsNodes(leftNode,rightNode))
+            if (edge.connectsNodes(leftNode, rightNode))
             {
               return edge;
             }
@@ -293,6 +353,8 @@ namespace MMD_Graph_Studio
     {
       Dispose(false);
     }
+
+    
   }
 
 }

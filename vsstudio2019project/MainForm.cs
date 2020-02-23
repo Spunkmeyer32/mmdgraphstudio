@@ -31,6 +31,7 @@ namespace MMD_Graph_Studio
 
     private MMDToolStripMenuItem newNodeContextItem = new MMDToolStripMenuItem();
     private MMDToolStripMenuItem newLinkContextItem = new MMDToolStripMenuItem();
+    private MMDToolStripMenuItem deleteNodeContextItem = new MMDToolStripMenuItem();
 
     private bool formdragging = false;
     private Point lastMouseFormDragPosition = new Point(0, 0);
@@ -52,6 +53,7 @@ namespace MMD_Graph_Studio
       InitializeComponent();
       this.initCustomGuiElements();
       this.initData();
+      this.updateSplitterDistanceAndPanels();
       layoutTask = Task.Run((Action)this.layoutTaskMethod);
     }
 
@@ -61,11 +63,15 @@ namespace MMD_Graph_Studio
       this.panel3.MouseUp += new MouseEventHandler(this.MainForm_MouseUp);
       this.panel3.MouseDown += new MouseEventHandler(this.MainForm_MouseDown);
       this.panel3.MouseMove += new MouseEventHandler(this.MainForm_MouseMove);
+      this.panel3.MouseDoubleClick += new MouseEventHandler(this.MainForm_MouseDoubleClick);
       this.label1.MouseLeave += new EventHandler(this.MainForm_MouseLeave);
       this.label1.MouseUp += new MouseEventHandler(this.MainForm_MouseUp);
       this.label1.MouseDown += new MouseEventHandler(this.MainForm_MouseDown);
       this.label1.MouseMove += new MouseEventHandler(this.MainForm_MouseMove);
+      this.label1.MouseDoubleClick += new MouseEventHandler(this.MainForm_MouseDoubleClick);
       this.Text = String.Empty;
+      this.splitContainer.IsSplitterFixed = true;
+      this.splitContainer.SplitterWidth = 1;
       initContextMenu();
       this.panelGraphPaint.MouseWheel += new MouseEventHandler(panelMouseWheel);
     }
@@ -83,14 +89,67 @@ namespace MMD_Graph_Studio
     {
       newNodeContextItem.Text = Resources.new_item;
       newLinkContextItem.Text = Resources.new_edge;
+      deleteNodeContextItem.Text = Resources.delete_item;
       newNodeContextItem.Click += new EventHandler(newNodeToolStripMenuItem_Click);
       newLinkContextItem.Click += new EventHandler(newLinkToolStripMenuItem_Click);
+      deleteNodeContextItem.Click += new EventHandler(deleteNodeToolStripMenuItem_Click);
       this.graphContextMenuStrip.Padding = new Padding(0);
       this.graphContextMenuStrip.Items.Add(this.newNodeContextItem);
       this.graphContextMenuStrip.Items.Add(this.newLinkContextItem);
+      this.graphContextMenuStrip.Items.Add(this.deleteNodeContextItem);
       int elementWidth = this.graphContextMenuStrip.Width - this.graphContextMenuStrip.Padding.Left - this.graphContextMenuStrip.Padding.Right;
       this.newNodeContextItem.Width = elementWidth;
       this.newLinkContextItem.Width = elementWidth;
+      this.deleteNodeContextItem.Width = elementWidth;
+    }
+
+    private enum VisibleSidePanel
+    {
+      filterPanel,
+      viewPanel
+    }
+
+    private bool panelIsOut = false;
+    private VisibleSidePanel visibleSidePanel = VisibleSidePanel.filterPanel;
+
+    private void moveFilterViewPanelOut()
+    {
+      panelIsOut = true;
+      updateSplitterDistanceAndPanels();
+    }
+
+    private void moveFilterViewPanelIn()
+    {
+      panelIsOut = false;
+      updateSplitterDistanceAndPanels();
+    }
+
+    private void updateSplitterDistanceAndPanels ()
+    {
+      if(panelIsOut)
+      {
+        this.splitContainer.SplitterDistance = this.splitContainer.Width - 333;
+      }
+      else
+      {
+        this.splitContainer.SplitterDistance = this.splitContainer.Width - 33;
+      }
+      switch (this.visibleSidePanel)
+      {
+        case VisibleSidePanel.filterPanel:
+          this.panel_views.Dock = DockStyle.None;
+          this.panel_views.Visible = false;
+          this.panel_filters.Dock = DockStyle.Fill;
+          this.panel_filters.Visible = true;
+          break;
+        case VisibleSidePanel.viewPanel:
+          this.panel_views.Dock = DockStyle.Fill;
+          this.panel_views.Visible = true;
+          this.panel_filters.Dock = DockStyle.None;
+          this.panel_filters.Visible = false;
+          break;
+      }
+      this.panelGraphPaint.Invalidate();
     }
 
 
@@ -110,19 +169,27 @@ namespace MMD_Graph_Studio
     {
       Thread.CurrentThread.Priority = ThreadPriority.Lowest;
       int waitms = 10;
+      int lastMaxForce = 0;
       while (!layoutTaskCancellation.IsCancellationRequested)
       {
         if (this.actualView != null && this.loadedGraph != null)
         {
-          if(this.actualView.forcePositioningIteration(this.loadedGraph))
+          lastMaxForce = this.actualView.forcePositioningIteration(this.loadedGraph);
+          if (lastMaxForce>0)
           {
-            //this.actualView.validatePositions();
+            Console.WriteLine(lastMaxForce);
             this.panelGraphPaint.Invalidate();
-            waitms = 20;
+            if(lastMaxForce > 100)
+            {
+              waitms = 20;
+            }
+            else
+            {
+              waitms = 35;
+            }            
           }
           else
           {
-            Console.WriteLine("no mov");
             waitms = 100;
           }
         }
@@ -201,7 +268,8 @@ namespace MMD_Graph_Studio
     {
       if (e.Delta != 0)
       {
-        this.actualView.zoom(e.Delta);
+        Point graphPoint = this.graphPainter.getGraphCoordinate(e.Location, this.actualView);
+        this.actualView.zoom(-e.Delta, graphPoint);
         this.panelGraphPaint.Invalidate();
       }
     }
@@ -221,7 +289,7 @@ namespace MMD_Graph_Studio
       else
       {
         bool newNode = false;
-        bool newLink = false;
+        bool nodeHit = false;
         if (this.draggedNode == 0 && !this.mouseDragMotion)
         {
           newNode = true;
@@ -232,16 +300,17 @@ namespace MMD_Graph_Studio
           {
             this.newLinkNode = this.draggedNode;
             this.newLinkNodeTarget = 0;
-            newLink = true;
+            nodeHit = true;
           }
           else
           {
             this.actualView.setNodeFixedStatus(this.draggedNode, false);
           }
         }
-        if (newNode || newLink)
+        if (newNode || nodeHit)
         {
-          this.newLinkContextItem.Enabled = newLink;
+          this.newLinkContextItem.Enabled = nodeHit;
+          this.deleteNodeContextItem.Enabled = nodeHit;
           this.newNodeContextItem.Enabled = newNode;
           Point startPoint = e.Location;
           startPoint.Offset(-20, -20);
@@ -268,16 +337,16 @@ namespace MMD_Graph_Studio
         int result = MGSPersist.SaveToDisk(targetfile, this.loadedGraph, graphViews);
         if (result == 0)
         {
-          statusLabel.Text = "Saved. Ready.";
+          statusLabel.Text = Resources.status_success_graph_saved;
         }
         else
         {
-          statusLabel.Text = "Error while saving data. Ready.";
+          statusLabel.Text = Resources.status_failed_graph_saved;
         }
       }
       else
       {
-        statusLabel.Text = "Filesave was canceled. Ready.";
+        statusLabel.Text = Resources.status_cancelled_graph_saved;
       }
     }
 
@@ -295,7 +364,7 @@ namespace MMD_Graph_Studio
         FileInfo fi = new FileInfo(targetfile);
         if (fi.Exists)
         {
-          statusLabel.Text = "Loading File...";
+          statusLabel.Text = Resources.status_loading_graph;
           this.loadedGraph = new Graph();
           this.loadedGraph.Clear();
           ArrayList graphViews = new ArrayList();
@@ -306,16 +375,16 @@ namespace MMD_Graph_Studio
           }
           this.actualView.CalculateBounds();
           this.panelGraphPaint.Invalidate();
-          statusLabel.Text = "File is loaded. Ready.";
+          statusLabel.Text = Resources.status_loaded_graph;
         }
         else
         {
-          statusLabel.Text = "File does not exist. Ready.";
+          statusLabel.Text = Resources.status_loading_file_not_exist;
         }
       }
       else
       {
-        statusLabel.Text = "File loading cancelled. Ready.";
+        statusLabel.Text = Resources.status_loading_graph_cancelled;
       }
     }
 
@@ -349,6 +418,13 @@ namespace MMD_Graph_Studio
       }
     }
 
+    private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      this.loadedGraph.removeNode(this.newLinkNode);
+      this.actualView.UpdateGraphData(this.loadedGraph);
+      this.panelGraphPaint.Invalidate();
+    }
+
 
     private void graphContextMenuStrip_MouseLeave(object sender, EventArgs e)
     {
@@ -362,7 +438,7 @@ namespace MMD_Graph_Studio
       this.actualView.LoadGraphData(this.loadedGraph);
       this.actualView.CalculateBounds();
       this.panelGraphPaint.Invalidate();
-      this.statusLabel.Text = "New Graph. Ready.";
+      this.statusLabel.Text = Resources.status_new_graph_success;
     }
 
     private void button_app_close_Click(object sender, EventArgs e)
@@ -436,5 +512,45 @@ namespace MMD_Graph_Studio
       this.Close();
     }
 
+    private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      this.toolStripMenuItem_max_Click(sender, e);
+    }
+
+    private void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+    {
+      this.panelGraphPaint.Invalidate();
+    }
+
+    private void panel_filterview_out_MouseClick(object sender, MouseEventArgs e)
+    {
+      moveFilterViewPanelOut();
+    }
+
+    
+
+    private void panel_filterview_in_MouseClick(object sender, MouseEventArgs e)
+    {
+      moveFilterViewPanelIn();
+    }
+
+    private void MainForm_Resize(object sender, EventArgs e)
+    {
+      this.updateSplitterDistanceAndPanels();
+    }
+
+    private void panel_showfilter_MouseClick(object sender, MouseEventArgs e)
+    {
+      this.visibleSidePanel = VisibleSidePanel.filterPanel;
+      this.panelIsOut = true;
+      this.updateSplitterDistanceAndPanels();
+    }
+
+    private void panel_showview_MouseClick(object sender, MouseEventArgs e)
+    {
+      this.visibleSidePanel = VisibleSidePanel.viewPanel;
+      this.panelIsOut = true;
+      this.updateSplitterDistanceAndPanels();
+    }
   }
 }

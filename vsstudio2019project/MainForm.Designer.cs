@@ -48,15 +48,18 @@
       this.panel3 = new System.Windows.Forms.Panel();
       this.panel4 = new System.Windows.Forms.Panel();
       this.splitContainer = new System.Windows.Forms.SplitContainer();
-      this.panelGraphPaint = new MMD_Graph_Studio.DoubleBufferedPanel();
       this.panel_toolpanels = new System.Windows.Forms.Panel();
       this.panel_views = new System.Windows.Forms.Panel();
       this.panel_filters = new System.Windows.Forms.Panel();
+      this.label_filter = new System.Windows.Forms.Label();
       this.button_newfilter = new System.Windows.Forms.Button();
       this.listBox_filters = new System.Windows.Forms.ListBox();
       this.panel_panelchooser = new System.Windows.Forms.Panel();
-      this.panel5 = new System.Windows.Forms.Panel();
-      this.panel2 = new System.Windows.Forms.Panel();
+      this.panel_filterview_in = new System.Windows.Forms.Panel();
+      this.panel_filterview_out = new System.Windows.Forms.Panel();
+      this.panel_showview = new System.Windows.Forms.Panel();
+      this.panel_showfilter = new System.Windows.Forms.Panel();
+      this.panelGraphPaint = new MMD_Graph_Studio.DoubleBufferedPanel();
       this.statusStrip.SuspendLayout();
       this.panel1.SuspendLayout();
       this.contextMenuStrip_MainApp.SuspendLayout();
@@ -76,7 +79,7 @@
       this.button_store.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
       this.button_store.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button_store.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button_store.Location = new System.Drawing.Point(0, 98);
+      this.button_store.Location = new System.Drawing.Point(1, 98);
       this.button_store.Margin = new System.Windows.Forms.Padding(0);
       this.button_store.Name = "button_store";
       this.button_store.Size = new System.Drawing.Size(125, 45);
@@ -91,7 +94,7 @@
       this.button_load.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
       this.button_load.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button_load.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button_load.Location = new System.Drawing.Point(0, 149);
+      this.button_load.Location = new System.Drawing.Point(1, 149);
       this.button_load.Margin = new System.Windows.Forms.Padding(0);
       this.button_load.Name = "button_load";
       this.button_load.Size = new System.Drawing.Size(125, 41);
@@ -140,7 +143,7 @@
       this.button_newgraph.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
       this.button_newgraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button_newgraph.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button_newgraph.Location = new System.Drawing.Point(0, 0);
+      this.button_newgraph.Location = new System.Drawing.Point(1, 0);
       this.button_newgraph.Margin = new System.Windows.Forms.Padding(0);
       this.button_newgraph.Name = "button_newgraph";
       this.button_newgraph.Size = new System.Drawing.Size(125, 43);
@@ -175,7 +178,7 @@
       this.button_app_close.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(1)))), ((int)(((byte)(1)))));
       this.button_app_close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
       this.button_app_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.button_app_close.Location = new System.Drawing.Point(1084, 2);
+      this.button_app_close.Location = new System.Drawing.Point(1086, 2);
       this.button_app_close.Name = "button_app_close";
       this.button_app_close.Size = new System.Drawing.Size(32, 32);
       this.button_app_close.TabIndex = 8;
@@ -196,7 +199,7 @@
       this.button_app_maxmize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(1)))), ((int)(((byte)(1)))));
       this.button_app_maxmize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
       this.button_app_maxmize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.button_app_maxmize.Location = new System.Drawing.Point(1049, 2);
+      this.button_app_maxmize.Location = new System.Drawing.Point(1051, 2);
       this.button_app_maxmize.Name = "button_app_maxmize";
       this.button_app_maxmize.Size = new System.Drawing.Size(32, 32);
       this.button_app_maxmize.TabIndex = 9;
@@ -217,7 +220,7 @@
       this.button_app_minimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(1)))), ((int)(((byte)(1)))));
       this.button_app_minimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
       this.button_app_minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.button_app_minimize.Location = new System.Drawing.Point(1014, 2);
+      this.button_app_minimize.Location = new System.Drawing.Point(1016, 2);
       this.button_app_minimize.Name = "button_app_minimize";
       this.button_app_minimize.Size = new System.Drawing.Size(32, 32);
       this.button_app_minimize.TabIndex = 10;
@@ -292,6 +295,7 @@
       // 
       // splitContainer
       // 
+      this.splitContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
       this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
       this.splitContainer.Location = new System.Drawing.Point(127, 0);
       this.splitContainer.Name = "splitContainer";
@@ -307,31 +311,20 @@
       this.splitContainer.Panel2.Controls.Add(this.panel_panelchooser);
       this.splitContainer.Panel2MinSize = 33;
       this.splitContainer.Size = new System.Drawing.Size(992, 533);
-      this.splitContainer.SplitterDistance = 572;
+      this.splitContainer.SplitterDistance = 680;
       this.splitContainer.SplitterWidth = 6;
       this.splitContainer.TabIndex = 8;
-      // 
-      // panelGraphPaint
-      // 
-      this.panelGraphPaint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(45)))));
-      this.panelGraphPaint.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.panelGraphPaint.Location = new System.Drawing.Point(0, 0);
-      this.panelGraphPaint.Name = "panelGraphPaint";
-      this.panelGraphPaint.Size = new System.Drawing.Size(572, 533);
-      this.panelGraphPaint.TabIndex = 0;
-      this.panelGraphPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
-      this.panelGraphPaint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_MouseDown);
-      this.panelGraphPaint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel_MouseMove);
-      this.panelGraphPaint.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel_MouseUp);
+      this.splitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
       // 
       // panel_toolpanels
       // 
+      this.panel_toolpanels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
       this.panel_toolpanels.Controls.Add(this.panel_views);
       this.panel_toolpanels.Controls.Add(this.panel_filters);
       this.panel_toolpanels.Dock = System.Windows.Forms.DockStyle.Fill;
       this.panel_toolpanels.Location = new System.Drawing.Point(32, 0);
       this.panel_toolpanels.Name = "panel_toolpanels";
-      this.panel_toolpanels.Size = new System.Drawing.Size(382, 533);
+      this.panel_toolpanels.Size = new System.Drawing.Size(274, 533);
       this.panel_toolpanels.TabIndex = 1;
       // 
       // panel_views
@@ -343,6 +336,7 @@
       // 
       // panel_filters
       // 
+      this.panel_filters.Controls.Add(this.label_filter);
       this.panel_filters.Controls.Add(this.button_newfilter);
       this.panel_filters.Controls.Add(this.listBox_filters);
       this.panel_filters.Location = new System.Drawing.Point(6, 3);
@@ -350,9 +344,19 @@
       this.panel_filters.Size = new System.Drawing.Size(268, 514);
       this.panel_filters.TabIndex = 0;
       // 
+      // label_filter
+      // 
+      this.label_filter.AutoSize = true;
+      this.label_filter.Font = new System.Drawing.Font("Source Sans Pro Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label_filter.Location = new System.Drawing.Point(8, 7);
+      this.label_filter.Name = "label_filter";
+      this.label_filter.Size = new System.Drawing.Size(52, 20);
+      this.label_filter.TabIndex = 2;
+      this.label_filter.Text = "Filters";
+      // 
       // button_newfilter
       // 
-      this.button_newfilter.Location = new System.Drawing.Point(3, 4);
+      this.button_newfilter.Location = new System.Drawing.Point(12, 33);
       this.button_newfilter.Name = "button_newfilter";
       this.button_newfilter.Size = new System.Drawing.Size(123, 25);
       this.button_newfilter.TabIndex = 1;
@@ -361,40 +365,86 @@
       // 
       // listBox_filters
       // 
+      this.listBox_filters.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+      this.listBox_filters.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.listBox_filters.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.listBox_filters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(255)))));
       this.listBox_filters.FormattingEnabled = true;
-      this.listBox_filters.ItemHeight = 14;
-      this.listBox_filters.Location = new System.Drawing.Point(3, 35);
+      this.listBox_filters.ItemHeight = 17;
+      this.listBox_filters.Location = new System.Drawing.Point(12, 64);
       this.listBox_filters.Name = "listBox_filters";
-      this.listBox_filters.Size = new System.Drawing.Size(238, 228);
+      this.listBox_filters.Size = new System.Drawing.Size(241, 221);
       this.listBox_filters.TabIndex = 0;
       // 
       // panel_panelchooser
       // 
-      this.panel_panelchooser.Controls.Add(this.panel5);
-      this.panel_panelchooser.Controls.Add(this.panel2);
+      this.panel_panelchooser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+      this.panel_panelchooser.Controls.Add(this.panel_filterview_in);
+      this.panel_panelchooser.Controls.Add(this.panel_filterview_out);
+      this.panel_panelchooser.Controls.Add(this.panel_showview);
+      this.panel_panelchooser.Controls.Add(this.panel_showfilter);
       this.panel_panelchooser.Dock = System.Windows.Forms.DockStyle.Left;
       this.panel_panelchooser.Location = new System.Drawing.Point(0, 0);
       this.panel_panelchooser.Name = "panel_panelchooser";
       this.panel_panelchooser.Size = new System.Drawing.Size(32, 533);
       this.panel_panelchooser.TabIndex = 0;
       // 
-      // panel5
+      // panel_filterview_in
       // 
-      this.panel5.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_control_camera_black_48dp;
-      this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-      this.panel5.Location = new System.Drawing.Point(0, 40);
-      this.panel5.Name = "panel5";
-      this.panel5.Size = new System.Drawing.Size(32, 32);
-      this.panel5.TabIndex = 1;
+      this.panel_filterview_in.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+      this.panel_filterview_in.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel_filterview_in.BackgroundImage")));
+      this.panel_filterview_in.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.panel_filterview_in.Location = new System.Drawing.Point(17, 3);
+      this.panel_filterview_in.Name = "panel_filterview_in";
+      this.panel_filterview_in.Size = new System.Drawing.Size(16, 32);
+      this.panel_filterview_in.TabIndex = 3;
+      this.panel_filterview_in.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_filterview_in_MouseClick);
       // 
-      // panel2
+      // panel_filterview_out
       // 
-      this.panel2.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_filter_list_black_48dp;
-      this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-      this.panel2.Location = new System.Drawing.Point(0, 0);
-      this.panel2.Name = "panel2";
-      this.panel2.Size = new System.Drawing.Size(32, 32);
-      this.panel2.TabIndex = 0;
+      this.panel_filterview_out.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+      this.panel_filterview_out.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel_filterview_out.BackgroundImage")));
+      this.panel_filterview_out.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.panel_filterview_out.Location = new System.Drawing.Point(-1, 3);
+      this.panel_filterview_out.Name = "panel_filterview_out";
+      this.panel_filterview_out.Size = new System.Drawing.Size(16, 32);
+      this.panel_filterview_out.TabIndex = 2;
+      this.panel_filterview_out.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_filterview_out_MouseClick);
+      // 
+      // panel_showview
+      // 
+      this.panel_showview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+      this.panel_showview.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_control_camera_black_48dp;
+      this.panel_showview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+      this.panel_showview.Location = new System.Drawing.Point(0, 85);
+      this.panel_showview.Name = "panel_showview";
+      this.panel_showview.Size = new System.Drawing.Size(32, 32);
+      this.panel_showview.TabIndex = 1;
+      this.panel_showview.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_showview_MouseClick);
+      // 
+      // panel_showfilter
+      // 
+      this.panel_showfilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+      this.panel_showfilter.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_filter_list_black_48dp;
+      this.panel_showfilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+      this.panel_showfilter.Location = new System.Drawing.Point(0, 45);
+      this.panel_showfilter.Name = "panel_showfilter";
+      this.panel_showfilter.Size = new System.Drawing.Size(32, 32);
+      this.panel_showfilter.TabIndex = 0;
+      this.panel_showfilter.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_showfilter_MouseClick);
+      // 
+      // panelGraphPaint
+      // 
+      this.panelGraphPaint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(45)))));
+      this.panelGraphPaint.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.panelGraphPaint.Location = new System.Drawing.Point(0, 0);
+      this.panelGraphPaint.Name = "panelGraphPaint";
+      this.panelGraphPaint.Size = new System.Drawing.Size(680, 533);
+      this.panelGraphPaint.TabIndex = 0;
+      this.panelGraphPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
+      this.panelGraphPaint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_MouseDown);
+      this.panelGraphPaint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel_MouseMove);
+      this.panelGraphPaint.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel_MouseUp);
       // 
       // MainForm
       // 
@@ -414,10 +464,12 @@
       this.Name = "MainForm";
       this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+      this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDoubleClick);
       this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
       this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
       this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
       this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+      this.Resize += new System.EventHandler(this.MainForm_Resize);
       this.statusStrip.ResumeLayout(false);
       this.statusStrip.PerformLayout();
       this.panel1.ResumeLayout(false);
@@ -430,6 +482,7 @@
       this.splitContainer.ResumeLayout(false);
       this.panel_toolpanels.ResumeLayout(false);
       this.panel_filters.ResumeLayout(false);
+      this.panel_filters.PerformLayout();
       this.panel_panelchooser.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -463,8 +516,11 @@
     private System.Windows.Forms.Panel panel_panelchooser;
     private System.Windows.Forms.Button button_newfilter;
     private System.Windows.Forms.ListBox listBox_filters;
-    private System.Windows.Forms.Panel panel5;
-    private System.Windows.Forms.Panel panel2;
-  }
+    private System.Windows.Forms.Panel panel_showview;
+    private System.Windows.Forms.Panel panel_showfilter;
+        private System.Windows.Forms.Label label_filter;
+        private System.Windows.Forms.Panel panel_filterview_in;
+        private System.Windows.Forms.Panel panel_filterview_out;
+    }
 }
 

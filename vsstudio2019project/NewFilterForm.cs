@@ -12,6 +12,8 @@ namespace MMD_Graph_Studio
 {
   public partial class NewFilterForm : Form
   {
+
+    private NodeFilter newNodeFilter;
     public NewFilterForm()
     {
       InitializeComponent();
@@ -19,7 +21,7 @@ namespace MMD_Graph_Studio
 
     private void button_filtersave_Click(object sender, EventArgs e)
     {
-
+      this.newNodeFilter = new NodeFilter();
     }
   }
 }

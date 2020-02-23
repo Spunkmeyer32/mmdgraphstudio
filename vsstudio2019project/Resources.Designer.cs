@@ -63,6 +63,26 @@ namespace MMD_Graph_Studio {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow_left {
+            get {
+                object obj = ResourceManager.GetObject("arrow_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_right {
+            get {
+                object obj = ResourceManager.GetObject("arrow_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap baseline_close_black_48dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_close_black_48dp", resourceCulture);
@@ -111,6 +131,15 @@ namespace MMD_Graph_Studio {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Remove Element ähnelt.
+        /// </summary>
+        internal static string delete_item {
+            get {
+                return ResourceManager.GetString("delete_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Add new Connection ähnelt.
         /// </summary>
         internal static string new_edge {
@@ -125,6 +154,78 @@ namespace MMD_Graph_Studio {
         internal static string new_item {
             get {
                 return ResourceManager.GetString("new_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saving graph was canceled. Ready. ähnelt.
+        /// </summary>
+        internal static string status_cancelled_graph_saved {
+            get {
+                return ResourceManager.GetString("status_cancelled_graph_saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Error while saving graph. Ready. ähnelt.
+        /// </summary>
+        internal static string status_failed_graph_saved {
+            get {
+                return ResourceManager.GetString("status_failed_graph_saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die File is loaded. Ready. ähnelt.
+        /// </summary>
+        internal static string status_loaded_graph {
+            get {
+                return ResourceManager.GetString("status_loaded_graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die File does not exist. Ready. ähnelt.
+        /// </summary>
+        internal static string status_loading_file_not_exist {
+            get {
+                return ResourceManager.GetString("status_loading_file_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Loading File... ähnelt.
+        /// </summary>
+        internal static string status_loading_graph {
+            get {
+                return ResourceManager.GetString("status_loading_graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die File loading cancelled. Ready. ähnelt.
+        /// </summary>
+        internal static string status_loading_graph_cancelled {
+            get {
+                return ResourceManager.GetString("status_loading_graph_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die New graph created. Ready. ähnelt.
+        /// </summary>
+        internal static string status_new_graph_success {
+            get {
+                return ResourceManager.GetString("status_new_graph_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Graph is Saved. Ready. ähnelt.
+        /// </summary>
+        internal static string status_success_graph_saved {
+            get {
+                return ResourceManager.GetString("status_success_graph_saved", resourceCulture);
             }
         }
     }

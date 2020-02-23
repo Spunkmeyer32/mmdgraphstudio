@@ -26,6 +26,25 @@ namespace MMD_Graph_Studio
     private string filterstring = "Emma.*";
     private int filternumber = 0;
     private string filterenumstring = "";
+    private bool useRegex = false;
+
+    public NodeFilter(string name, string filterAttrib, filterOperator foperator, string filterstring, int filternumber, string filterenumstring, bool useRegex = false)
+    {
+      this.filterName = name;
+      this.filterattribute = filterAttrib;
+      this.filteroperator = foperator;
+      this.filternumber = filternumber;
+      this.filterenumstring = filterenumstring;
+      this.useRegex = useRegex;
+      if(this.useRegex)
+      {
+        this.filterstring = filterstring;
+      }
+      else
+      {
+        this.filterstring = ".*" + filterstring + ".*";
+      }
+    }
 
     public bool matchNode(Node node)
     {
