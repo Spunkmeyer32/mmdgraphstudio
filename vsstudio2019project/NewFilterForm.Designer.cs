@@ -36,10 +36,10 @@
       this.comboBox_filtertype = new System.Windows.Forms.ComboBox();
       this.button_filtersave = new System.Windows.Forms.Button();
       this.button_filtercancel = new System.Windows.Forms.Button();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.textBox_filtername = new System.Windows.Forms.TextBox();
       this.label_filtername = new System.Windows.Forms.Label();
       this.label_newfiltercaption = new System.Windows.Forms.Label();
-      this.checkBox1 = new System.Windows.Forms.CheckBox();
+      this.checkBox_useRegex = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_filternumber)).BeginInit();
       this.SuspendLayout();
       // 
@@ -97,8 +97,7 @@
       // 
       this.comboBox_filtertype.FormattingEnabled = true;
       this.comboBox_filtertype.Items.AddRange(new object[] {
-            "Element",
-            "Connection"});
+            "Element"});
       this.comboBox_filtertype.Location = new System.Drawing.Point(8, 76);
       this.comboBox_filtertype.Name = "comboBox_filtertype";
       this.comboBox_filtertype.Size = new System.Drawing.Size(187, 22);
@@ -130,13 +129,13 @@
       this.button_filtercancel.Text = "Cancel";
       this.button_filtercancel.UseVisualStyleBackColor = false;
       // 
-      // textBox1
+      // textBox_filtername
       // 
-      this.textBox1.Location = new System.Drawing.Point(8, 49);
-      this.textBox1.Name = "textBox1";
-      this.textBox1.Size = new System.Drawing.Size(187, 21);
-      this.textBox1.TabIndex = 8;
-      this.textBox1.Text = "unnamed filter";
+      this.textBox_filtername.Location = new System.Drawing.Point(8, 49);
+      this.textBox_filtername.Name = "textBox_filtername";
+      this.textBox_filtername.Size = new System.Drawing.Size(187, 21);
+      this.textBox_filtername.TabIndex = 8;
+      this.textBox_filtername.Text = "unnamed filter";
       // 
       // label_filtername
       // 
@@ -157,15 +156,15 @@
       this.label_newfiltercaption.Text = "New Filter";
       this.label_newfiltercaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
-      // checkBox1
+      // checkBox_useRegex
       // 
-      this.checkBox1.AutoSize = true;
-      this.checkBox1.Location = new System.Drawing.Point(323, 161);
-      this.checkBox1.Name = "checkBox1";
-      this.checkBox1.Size = new System.Drawing.Size(136, 18);
-      this.checkBox1.TabIndex = 11;
-      this.checkBox1.Text = "Regular Expression Text";
-      this.checkBox1.UseVisualStyleBackColor = true;
+      this.checkBox_useRegex.AutoSize = true;
+      this.checkBox_useRegex.Location = new System.Drawing.Point(323, 161);
+      this.checkBox_useRegex.Name = "checkBox_useRegex";
+      this.checkBox_useRegex.Size = new System.Drawing.Size(136, 18);
+      this.checkBox_useRegex.TabIndex = 11;
+      this.checkBox_useRegex.Text = "Regular Expression Text";
+      this.checkBox_useRegex.UseVisualStyleBackColor = true;
       // 
       // NewFilterForm
       // 
@@ -173,10 +172,10 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
       this.ClientSize = new System.Drawing.Size(485, 231);
-      this.Controls.Add(this.checkBox1);
+      this.Controls.Add(this.checkBox_useRegex);
       this.Controls.Add(this.label_newfiltercaption);
       this.Controls.Add(this.label_filtername);
-      this.Controls.Add(this.textBox1);
+      this.Controls.Add(this.textBox_filtername);
       this.Controls.Add(this.button_filtercancel);
       this.Controls.Add(this.button_filtersave);
       this.Controls.Add(this.comboBox_filtertype);
@@ -206,9 +205,9 @@
         private System.Windows.Forms.ComboBox comboBox_filtertype;
         private System.Windows.Forms.Button button_filtersave;
         private System.Windows.Forms.Button button_filtercancel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_filtername;
         private System.Windows.Forms.Label label_filtername;
         private System.Windows.Forms.Label label_newfiltercaption;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox_useRegex;
     }
 }

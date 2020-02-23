@@ -21,7 +21,35 @@ namespace MMD_Graph_Studio
 
     private void button_filtersave_Click(object sender, EventArgs e)
     {
-      this.newNodeFilter = new NodeFilter();
+      filterOperator usedOperator = filterOperator.equals;
+      switch (comboBox_filtercomperator.Text.Trim())
+      {
+        case "=":
+          usedOperator = filterOperator.equals;
+          break;
+        case "<":
+          usedOperator = filterOperator.less;
+          break;
+        case ">":
+          usedOperator = filterOperator.greater;
+          break;
+        case "<=":
+          usedOperator = filterOperator.lessequal;
+          break;
+        case ">=":
+          usedOperator = filterOperator.greaterequal;
+          break;
+        case "!=":
+          usedOperator = filterOperator.unequal;
+          break;
+        default:
+          usedOperator = filterOperator.equals;
+          break;
+      }
+      this.newNodeFilter = new NodeFilter(this.textBox_filtername.Text.Trim(),
+        this.comboBox_filterelement.Text.Trim(), usedOperator,
+        this.textBox_filtertext.Text.Trim(), (int)this.numericUpDown_filternumber.Value,
+        this.comboBox_filterenum.Text.Trim(), this.checkBox_useRegex.Checked);
     }
   }
 }
