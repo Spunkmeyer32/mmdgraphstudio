@@ -11,6 +11,8 @@ namespace MMD_Graph_Studio
   class MGSPersist
   {
 
+    private byte currentVersion = 1;
+
     public static void LoadFromDisk(String path, ref Graph graphData, ref ArrayList graphViews)
     {
       FileInfo fi = new FileInfo(path);

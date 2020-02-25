@@ -170,6 +170,7 @@
   <ItemGroup>
     <Content Include="app.ico" />
     <Content Include="notes.txt" />
+    <None Include="resources\baseline_remove_red_eye_black_48dp.png" />
     <None Include="resources\arrow_right.png" />
     <None Include="resources\arrow_left.png" />
     <None Include="resources\baseline_filter_list_black_48dp.png" />

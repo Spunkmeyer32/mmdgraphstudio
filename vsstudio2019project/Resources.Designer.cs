@@ -93,16 +93,6 @@ namespace MMD_Graph_Studio {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap baseline_control_camera_black_48dp {
-            get {
-                object obj = ResourceManager.GetObject("baseline_control_camera_black_48dp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap baseline_filter_list_black_48dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_filter_list_black_48dp", resourceCulture);
@@ -126,6 +116,16 @@ namespace MMD_Graph_Studio {
         internal static System.Drawing.Bitmap baseline_minimize_black_48dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_minimize_black_48dp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap baseline_remove_red_eye_black_48dp {
+            get {
+                object obj = ResourceManager.GetObject("baseline_remove_red_eye_black_48dp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

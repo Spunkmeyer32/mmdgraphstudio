@@ -38,6 +38,11 @@ namespace MMD_Graph_Studio
 
     private const int WMessageRightClickTaskbar = 0x313;
 
+    private Pen borderPen = new Pen(Color.FromArgb(31, 31, 35));
+
+    private bool panelIsOut = false;
+    private VisibleSidePanel visibleSidePanel = VisibleSidePanel.filterPanel;
+
     protected override void WndProc(ref Message m)
     {
       if (m.Msg == WMessageRightClickTaskbar)
@@ -109,8 +114,7 @@ namespace MMD_Graph_Studio
       viewPanel
     }
 
-    private bool panelIsOut = false;
-    private VisibleSidePanel visibleSidePanel = VisibleSidePanel.filterPanel;
+    
 
     private void moveFilterViewPanelOut()
     {
@@ -124,16 +128,24 @@ namespace MMD_Graph_Studio
       updateSplitterDistanceAndPanels();
     }
 
-    private void updateSplitterDistanceAndPanels ()
+    private void updateSplitterDistanceAndPanels()
     {
-      if(panelIsOut)
+      if (this.WindowState == FormWindowState.Minimized)
+      {
+        return;
+      }
+      Color background = Color.FromArgb(70, 70, 74);
+      if (panelIsOut)
       {
         this.splitContainer.SplitterDistance = this.splitContainer.Width - 333;
       }
       else
       {
         this.splitContainer.SplitterDistance = this.splitContainer.Width - 33;
+        background = Color.FromArgb(51, 51, 55);
       }
+      this.panel_showfilter.BackColor = Color.FromArgb(51, 51, 55);
+      this.panel_showview.BackColor = Color.FromArgb(51, 51, 55);
       switch (this.visibleSidePanel)
       {
         case VisibleSidePanel.filterPanel:
@@ -141,12 +153,14 @@ namespace MMD_Graph_Studio
           this.panel_views.Visible = false;
           this.panel_filters.Dock = DockStyle.Fill;
           this.panel_filters.Visible = true;
+          this.panel_showfilter.BackColor = background;
           break;
         case VisibleSidePanel.viewPanel:
           this.panel_views.Dock = DockStyle.Fill;
           this.panel_views.Visible = true;
           this.panel_filters.Dock = DockStyle.None;
           this.panel_filters.Visible = false;
+          this.panel_showview.BackColor = background;
           break;
       }
       this.panelGraphPaint.Invalidate();
@@ -175,18 +189,18 @@ namespace MMD_Graph_Studio
         if (this.actualView != null && this.loadedGraph != null)
         {
           lastMaxForce = this.actualView.forcePositioningIteration(this.loadedGraph);
-          if (lastMaxForce>0)
+          if (lastMaxForce > 0)
           {
             Console.WriteLine(lastMaxForce);
             this.panelGraphPaint.Invalidate();
-            if(lastMaxForce > 100)
+            if (lastMaxForce > 100)
             {
               waitms = 20;
             }
             else
             {
               waitms = 35;
-            }            
+            }
           }
           else
           {
@@ -527,7 +541,7 @@ namespace MMD_Graph_Studio
       moveFilterViewPanelOut();
     }
 
-    
+
 
     private void panel_filterview_in_MouseClick(object sender, MouseEventArgs e)
     {
@@ -541,16 +555,64 @@ namespace MMD_Graph_Studio
 
     private void panel_showfilter_MouseClick(object sender, MouseEventArgs e)
     {
-      this.visibleSidePanel = VisibleSidePanel.filterPanel;
-      this.panelIsOut = true;
+      if (this.panelIsOut)
+      {
+        if (this.visibleSidePanel == VisibleSidePanel.filterPanel)
+        {
+          this.panelIsOut = false;
+        }
+        else
+        {
+          this.visibleSidePanel = VisibleSidePanel.filterPanel;
+        }
+      }
+      else
+      {
+        this.visibleSidePanel = VisibleSidePanel.filterPanel;
+        this.panelIsOut = true;
+      }
       this.updateSplitterDistanceAndPanels();
     }
 
     private void panel_showview_MouseClick(object sender, MouseEventArgs e)
     {
-      this.visibleSidePanel = VisibleSidePanel.viewPanel;
-      this.panelIsOut = true;
+      if (this.panelIsOut)
+      {
+        if (this.visibleSidePanel == VisibleSidePanel.viewPanel)
+        {
+          this.panelIsOut = false;
+        }
+        else
+        {
+          this.visibleSidePanel = VisibleSidePanel.viewPanel;
+        }
+      }
+      else
+      {
+        this.visibleSidePanel = VisibleSidePanel.viewPanel;
+        this.panelIsOut = true;
+      }
       this.updateSplitterDistanceAndPanels();
+    }
+
+    private void panel_showfilter_Paint(object sender, PaintEventArgs e)
+    {
+      e.Graphics.DrawRectangle(borderPen,
+      e.ClipRectangle.Left,
+      e.ClipRectangle.Top,
+      e.ClipRectangle.Width - 1,
+      e.ClipRectangle.Height - 1);
+      base.OnPaint(e);
+    }
+
+    private void panel_showview_Paint(object sender, PaintEventArgs e)
+    {
+      e.Graphics.DrawRectangle(borderPen,
+      e.ClipRectangle.Left,
+      e.ClipRectangle.Top,
+      e.ClipRectangle.Width - 1,
+      e.ClipRectangle.Height - 1);
+      base.OnPaint(e);
     }
   }
 }
