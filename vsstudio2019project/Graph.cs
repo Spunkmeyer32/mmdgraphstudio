@@ -14,10 +14,12 @@ namespace MMD_Graph_Studio
     private Dictionary<UInt64, Node> nodes;
     private ArrayList edges;
     private Dictionary<UInt64, ArrayList> nodeEdges;
+    private ArrayList nodeProperties = new ArrayList();
 
     private Mutex edgeDataMutex = new Mutex(false, "edgeData");
     private Mutex nodeDataMutex = new Mutex(false, "nodeData");
     private Mutex nodeEdgesDataMutex = new Mutex(false, "nodeEdgesData");
+    private Mutex nodePropertiesDataMutex = new Mutex(false, "nodePropertyData");
 
     public Graph()
     {
@@ -62,6 +64,15 @@ namespace MMD_Graph_Studio
       {
         this.nodeEdgesDataMutex.ReleaseMutex();
       }
+      this.nodePropertiesDataMutex.WaitOne();
+      try
+      {
+        this.nodeProperties.Clear();
+      }
+      finally
+      {
+        this.nodePropertiesDataMutex.ReleaseMutex();
+      }
     }
 
     public UInt64 AddNewNode(String name)
@@ -86,6 +97,19 @@ namespace MMD_Graph_Studio
         this.nodeEdgesDataMutex.ReleaseMutex();
       }
       return nodeToAdd.GetID();
+    }
+
+    public void addNewNodeProperty(NodeProperty property)
+    {
+      this.nodePropertiesDataMutex.WaitOne();
+      try
+      {
+        this.nodeProperties.Add(property);
+      }
+      finally
+      {
+        this.nodePropertiesDataMutex.ReleaseMutex();
+      }
     }
 
     internal void removeNode(UInt64 nodeToRemove)

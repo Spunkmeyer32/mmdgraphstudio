@@ -31,6 +31,7 @@ namespace MMD_Graph_Studio
 
     private MMDToolStripMenuItem newNodeContextItem = new MMDToolStripMenuItem();
     private MMDToolStripMenuItem newLinkContextItem = new MMDToolStripMenuItem();
+    private MMDToolStripMenuItem editNodePropertiesItem = new MMDToolStripMenuItem();
     private MMDToolStripMenuItem deleteNodeContextItem = new MMDToolStripMenuItem();
 
     private bool formdragging = false;
@@ -95,17 +96,21 @@ namespace MMD_Graph_Studio
       newNodeContextItem.Text = Resources.new_item;
       newLinkContextItem.Text = Resources.new_edge;
       deleteNodeContextItem.Text = Resources.delete_item;
+      editNodePropertiesItem.Text = "Edit Node Properties";
       newNodeContextItem.Click += new EventHandler(newNodeToolStripMenuItem_Click);
       newLinkContextItem.Click += new EventHandler(newLinkToolStripMenuItem_Click);
       deleteNodeContextItem.Click += new EventHandler(deleteNodeToolStripMenuItem_Click);
+      editNodePropertiesItem.Click += new EventHandler(editNodePropertiesToolStripMenuItem_Click);
       this.graphContextMenuStrip.Padding = new Padding(0);
       this.graphContextMenuStrip.Items.Add(this.newNodeContextItem);
       this.graphContextMenuStrip.Items.Add(this.newLinkContextItem);
+      this.graphContextMenuStrip.Items.Add(this.editNodePropertiesItem);
       this.graphContextMenuStrip.Items.Add(this.deleteNodeContextItem);
       int elementWidth = this.graphContextMenuStrip.Width - this.graphContextMenuStrip.Padding.Left - this.graphContextMenuStrip.Padding.Right;
       this.newNodeContextItem.Width = elementWidth;
       this.newLinkContextItem.Width = elementWidth;
       this.deleteNodeContextItem.Width = elementWidth;
+      this.editNodePropertiesItem.Width = elementWidth;
     }
 
     private enum VisibleSidePanel
@@ -439,6 +444,11 @@ namespace MMD_Graph_Studio
       this.panelGraphPaint.Invalidate();
     }
 
+    private void editNodePropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
 
     private void graphContextMenuStrip_MouseLeave(object sender, EventArgs e)
     {
@@ -540,8 +550,6 @@ namespace MMD_Graph_Studio
     {
       moveFilterViewPanelOut();
     }
-
-
 
     private void panel_filterview_in_MouseClick(object sender, MouseEventArgs e)
     {

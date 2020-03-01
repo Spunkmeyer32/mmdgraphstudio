@@ -11,7 +11,7 @@ namespace MMD_Graph_Studio
   class MGSPersist
   {
 
-    private byte currentVersion = 1;
+    private static byte currentVersion = 1;
 
     public static void LoadFromDisk(String path, ref Graph graphData, ref ArrayList graphViews)
     {
@@ -25,8 +25,24 @@ namespace MMD_Graph_Studio
         {
           return;
         }
+        byte versionbyte = (byte)fs.ReadByte();
+
+
+        
         byte[] counterBytes = new byte[8];
-        read = fs.Read(counterBytes, 0, 8);
+        /// TODO Remove this when we are a few versions from pre alpha...
+        if (versionbyte == 0 || versionbyte > 1)
+        {
+          read = fs.Read(counterBytes, 1, 7);
+          counterBytes[0] = versionbyte;
+          read += 1;
+        }
+        else
+        {
+          read = fs.Read(counterBytes, 0, 8);
+        }
+        
+        
         if (read != 8)
         {
           return;
@@ -120,6 +136,9 @@ namespace MMD_Graph_Studio
           fs.WriteByte((byte)'\n');
           fs.WriteByte(26);
           fs.WriteByte((byte)'\n');
+          fs.WriteByte( currentVersion);
+
+
           // Save Graph Nodes
           IReadOnlyCollection<Node> nodes = graphData.GetNodesReadOnly();
           byte[] nodecountbytes = BitConverter.GetBytes((UInt64)nodes.Count);
