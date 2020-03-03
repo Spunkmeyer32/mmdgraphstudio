@@ -28,7 +28,6 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.label_newnodeproperty = new System.Windows.Forms.Label();
       this.button_propertycancel = new System.Windows.Forms.Button();
       this.button_propertysave = new System.Windows.Forms.Button();
       this.comboBox_proptype = new System.Windows.Forms.ComboBox();
@@ -39,22 +38,12 @@
       this.label_enumvalues = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
-      // label_newnodeproperty
-      // 
-      this.label_newnodeproperty.Font = new System.Drawing.Font("Source Sans Pro", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label_newnodeproperty.Location = new System.Drawing.Point(1, 3);
-      this.label_newnodeproperty.Name = "label_newnodeproperty";
-      this.label_newnodeproperty.Size = new System.Drawing.Size(616, 34);
-      this.label_newnodeproperty.TabIndex = 13;
-      this.label_newnodeproperty.Text = "New node property";
-      this.label_newnodeproperty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      // 
       // button_propertycancel
       // 
       this.button_propertycancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
       this.button_propertycancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button_propertycancel.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button_propertycancel.Location = new System.Drawing.Point(405, 205);
+      this.button_propertycancel.Location = new System.Drawing.Point(405, 172);
       this.button_propertycancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.button_propertycancel.Name = "button_propertycancel";
       this.button_propertycancel.Size = new System.Drawing.Size(201, 47);
@@ -68,7 +57,7 @@
       this.button_propertysave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
       this.button_propertysave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button_propertysave.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button_propertysave.Location = new System.Drawing.Point(236, 205);
+      this.button_propertysave.Location = new System.Drawing.Point(236, 172);
       this.button_propertysave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.button_propertysave.Name = "button_propertysave";
       this.button_propertysave.Size = new System.Drawing.Size(163, 47);
@@ -84,7 +73,7 @@
             "Text",
             "Number",
             "Selectionlist"});
-      this.comboBox_proptype.Location = new System.Drawing.Point(236, 67);
+      this.comboBox_proptype.Location = new System.Drawing.Point(236, 34);
       this.comboBox_proptype.Name = "comboBox_proptype";
       this.comboBox_proptype.Size = new System.Drawing.Size(163, 25);
       this.comboBox_proptype.TabIndex = 14;
@@ -93,7 +82,7 @@
       // textBox_Propertyname
       // 
       this.textBox_Propertyname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.textBox_Propertyname.Location = new System.Drawing.Point(12, 67);
+      this.textBox_Propertyname.Location = new System.Drawing.Point(12, 34);
       this.textBox_Propertyname.Name = "textBox_Propertyname";
       this.textBox_Propertyname.Size = new System.Drawing.Size(218, 24);
       this.textBox_Propertyname.TabIndex = 15;
@@ -102,7 +91,7 @@
       // 
       this.textBox_enumvalues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.textBox_enumvalues.Enabled = false;
-      this.textBox_enumvalues.Location = new System.Drawing.Point(405, 67);
+      this.textBox_enumvalues.Location = new System.Drawing.Point(405, 34);
       this.textBox_enumvalues.Multiline = true;
       this.textBox_enumvalues.Name = "textBox_enumvalues";
       this.textBox_enumvalues.Size = new System.Drawing.Size(201, 131);
@@ -111,7 +100,7 @@
       // label_propertyname
       // 
       this.label_propertyname.AutoSize = true;
-      this.label_propertyname.Location = new System.Drawing.Point(9, 47);
+      this.label_propertyname.Location = new System.Drawing.Point(9, 14);
       this.label_propertyname.Name = "label_propertyname";
       this.label_propertyname.Size = new System.Drawing.Size(89, 17);
       this.label_propertyname.TabIndex = 17;
@@ -120,7 +109,7 @@
       // label_propertytype
       // 
       this.label_propertytype.AutoSize = true;
-      this.label_propertytype.Location = new System.Drawing.Point(233, 47);
+      this.label_propertytype.Location = new System.Drawing.Point(233, 14);
       this.label_propertytype.Name = "label_propertytype";
       this.label_propertytype.Size = new System.Drawing.Size(81, 17);
       this.label_propertytype.TabIndex = 18;
@@ -129,7 +118,7 @@
       // label_enumvalues
       // 
       this.label_enumvalues.AutoSize = true;
-      this.label_enumvalues.Location = new System.Drawing.Point(402, 47);
+      this.label_enumvalues.Location = new System.Drawing.Point(402, 14);
       this.label_enumvalues.Name = "label_enumvalues";
       this.label_enumvalues.Size = new System.Drawing.Size(128, 17);
       this.label_enumvalues.TabIndex = 19;
@@ -140,7 +129,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-      this.ClientSize = new System.Drawing.Size(619, 265);
+      this.ClientSize = new System.Drawing.Size(619, 232);
       this.ControlBox = false;
       this.Controls.Add(this.label_enumvalues);
       this.Controls.Add(this.label_propertytype);
@@ -148,26 +137,23 @@
       this.Controls.Add(this.textBox_enumvalues);
       this.Controls.Add(this.textBox_Propertyname);
       this.Controls.Add(this.comboBox_proptype);
-      this.Controls.Add(this.label_newnodeproperty);
       this.Controls.Add(this.button_propertycancel);
       this.Controls.Add(this.button_propertysave);
       this.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.MaximizeBox = false;
       this.Name = "NewPropertyForm";
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
-      this.Text = "NewPropertyForm";
+      this.Text = "New element property";
       this.ResumeLayout(false);
       this.PerformLayout();
 
     }
 
         #endregion
-
-        private System.Windows.Forms.Label label_newnodeproperty;
         private System.Windows.Forms.Button button_propertycancel;
         private System.Windows.Forms.Button button_propertysave;
         private System.Windows.Forms.ComboBox comboBox_proptype;

@@ -21,7 +21,7 @@ namespace MMD_Graph_Studio
     private static int nodeDragMinDistance = 15;
     private static int nodeDragMinDistanceSq = nodeDragMinDistance * nodeDragMinDistance;
 
-    private UInt64 newLinkNode = 0;
+    private UInt64 clickedNode = 0;
     private UInt64 newLinkNodeTarget = 0;
     private bool newLinkMode = false;
     private Point lastMouseLinkPosition = new Point(0, 0);
@@ -180,7 +180,7 @@ namespace MMD_Graph_Studio
       this.graphPainter.PaintGraph(g, this.loadedGraph, this.actualView);
       if (this.newLinkMode)
       {
-        this.graphPainter.drawNewLink(g, this.newLinkNode, this.lastMouseLinkPosition, this.actualView);
+        this.graphPainter.drawNewLink(g, this.clickedNode, this.lastMouseLinkPosition, this.actualView);
       }
     }
 
@@ -234,7 +234,7 @@ namespace MMD_Graph_Studio
         else
         {
           this.newLinkMode = false;
-          this.newLinkNode = 0;
+          this.clickedNode = 0;
           this.newLinkNodeTarget = 0;
         }
       }
@@ -299,9 +299,9 @@ namespace MMD_Graph_Studio
       {
         if (this.newLinkNodeTarget != 0)
         {
-          this.loadedGraph.AddEdge(new Edge(newLinkNode, newLinkNodeTarget));
+          this.loadedGraph.AddEdge(new Edge(clickedNode, newLinkNodeTarget));
           this.newLinkMode = false;
-          this.newLinkNode = 0;
+          this.clickedNode = 0;
           this.panelGraphPaint.Invalidate();
         }
       }
@@ -317,7 +317,7 @@ namespace MMD_Graph_Studio
         {
           if (!this.mouseDragMotion)
           {
-            this.newLinkNode = this.draggedNode;
+            this.clickedNode = this.draggedNode;
             this.newLinkNodeTarget = 0;
             nodeHit = true;
           }
@@ -330,6 +330,7 @@ namespace MMD_Graph_Studio
         {
           this.newLinkContextItem.Enabled = nodeHit;
           this.deleteNodeContextItem.Enabled = nodeHit;
+          this.editNodePropertiesItem.Enabled = nodeHit;
           this.newNodeContextItem.Enabled = newNode;
           Point startPoint = e.Location;
           startPoint.Offset(-20, -20);
@@ -430,7 +431,7 @@ namespace MMD_Graph_Studio
 
     private void newLinkToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      if (this.newLinkNode != 0)
+      if (this.clickedNode != 0)
       {
         this.newLinkMode = true;
         this.newLinkNodeTarget = 0;
@@ -439,13 +440,15 @@ namespace MMD_Graph_Studio
 
     private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      this.loadedGraph.removeNode(this.newLinkNode);
+      this.loadedGraph.removeNode(this.clickedNode);
       this.actualView.UpdateGraphData(this.loadedGraph);
       this.panelGraphPaint.Invalidate();
     }
 
     private void editNodePropertiesToolStripMenuItem_Click(object sender, EventArgs e)
     {
+      ChangeNodePropertyForm nodePropertyForm = new ChangeNodePropertyForm(ref this.loadedGraph, this.clickedNode);
+      nodePropertyForm.ShowDialog();
 
     }
 

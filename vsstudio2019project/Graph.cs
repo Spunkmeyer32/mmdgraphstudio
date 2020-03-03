@@ -12,9 +12,9 @@ namespace MMD_Graph_Studio
   {
     private bool disposed = false;
     private Dictionary<UInt64, Node> nodes;
-    private ArrayList edges;
-    private Dictionary<UInt64, ArrayList> nodeEdges;
-    private ArrayList nodeProperties = new ArrayList();
+    private List<Edge> edges;
+    private Dictionary<UInt64, List<Edge>> nodeEdges;
+    private List<NodeProperty> nodeProperties = new List<NodeProperty>();
 
     private Mutex edgeDataMutex = new Mutex(false, "edgeData");
     private Mutex nodeDataMutex = new Mutex(false, "nodeData");
@@ -25,8 +25,8 @@ namespace MMD_Graph_Studio
     {
       IDGenerator.StartAt(1);
       this.nodes = new Dictionary<ulong, Node>();
-      this.edges = new ArrayList();
-      this.nodeEdges = new Dictionary<ulong, ArrayList>();
+      this.edges = new List<Edge>();
+      this.nodeEdges = new Dictionary<ulong, List<Edge>>();
     }
 
     public void Clear()
@@ -54,7 +54,7 @@ namespace MMD_Graph_Studio
       this.nodeEdgesDataMutex.WaitOne();
       try
       {
-        foreach (KeyValuePair<UInt64, ArrayList> pair in this.nodeEdges)
+        foreach (KeyValuePair<UInt64, List<Edge>> pair in this.nodeEdges)
         {
           pair.Value.Clear();
         }
@@ -90,7 +90,7 @@ namespace MMD_Graph_Studio
       this.nodeEdgesDataMutex.WaitOne();
       try
       {
-        this.nodeEdges.Add(nodeToAdd.GetID(), new ArrayList());
+        this.nodeEdges.Add(nodeToAdd.GetID(), new List<Edge>());
       }
       finally
       {
@@ -112,6 +112,11 @@ namespace MMD_Graph_Studio
       }
     }
 
+    public IReadOnlyCollection<NodeProperty> getProperties()
+    {
+      return this.nodeProperties;
+    }
+
     internal void removeNode(UInt64 nodeToRemove)
     {
       this.nodeDataMutex.WaitOne();
@@ -125,7 +130,7 @@ namespace MMD_Graph_Studio
           {
             if(this.nodeEdges.ContainsKey(nodeToRemove))
             {
-              ArrayList edgesToRemove = this.nodeEdges[nodeToRemove];
+              List<Edge> edgesToRemove = this.nodeEdges[nodeToRemove];
               this.edgeDataMutex.WaitOne();
               try
               {
@@ -141,7 +146,7 @@ namespace MMD_Graph_Studio
                   {
                     otherID = edge.GetLeftNode();
                   }
-                  ArrayList edgesToCheck = this.nodeEdges[otherID];
+                  List<Edge> edgesToCheck = this.nodeEdges[otherID];
                   foreach (Edge checkEdge in edgesToCheck)
                   {
                     if (checkEdge == edge)
@@ -187,7 +192,7 @@ namespace MMD_Graph_Studio
           this.nodeEdgesDataMutex.WaitOne();
           try
           {
-            this.nodeEdges.Add(node.GetID(), new ArrayList());
+            this.nodeEdges.Add(node.GetID(), new List<Edge>());
           }
           finally
           {
@@ -217,12 +222,12 @@ namespace MMD_Graph_Studio
       {
         if (!this.nodeEdges.ContainsKey(edge.GetLeftNode()))
         {
-          this.nodeEdges.Add(edge.GetLeftNode(), new ArrayList());
+          this.nodeEdges.Add(edge.GetLeftNode(), new List<Edge>());
         }
         this.nodeEdges[edge.GetLeftNode()].Add(edge);
         if (!this.nodeEdges.ContainsKey(edge.GetRightNode()))
         {
-          this.nodeEdges.Add(edge.GetRightNode(), new ArrayList());
+          this.nodeEdges.Add(edge.GetRightNode(), new List<Edge>());
         }
         this.nodeEdges[edge.GetRightNode()].Add(edge);
       }
@@ -251,7 +256,7 @@ namespace MMD_Graph_Studio
         {
           if (filter != null)
           {
-            ArrayList edgelist = this.nodeEdges[nodeID];
+            List<Edge> edgelist = this.nodeEdges[nodeID];
             foreach (Edge edge in edgelist)
             {
               if (edge.GetLeftNode() == nodeID)
@@ -290,7 +295,7 @@ namespace MMD_Graph_Studio
       {
         if (this.nodeEdges.ContainsKey(leftNode))
         {
-          ArrayList edgelist = this.nodeEdges[leftNode];
+          List<Edge> edgelist = this.nodeEdges[leftNode];
           foreach (Edge edge in edgelist)
           {
             if (edge.connectsNodes(leftNode, rightNode))
@@ -320,12 +325,12 @@ namespace MMD_Graph_Studio
       }
     }
 
-    public ArrayList GetEdgesReadOnly()
+    public IReadOnlyCollection<Edge> GetEdgesReadOnly()
     {
       this.edgeDataMutex.WaitOne();
       try
       {
-        return ArrayList.ReadOnly(this.edges);
+        return this.edges.AsReadOnly();
       }
       finally
       {

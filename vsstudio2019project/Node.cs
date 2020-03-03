@@ -15,7 +15,7 @@ namespace MMD_Graph_Studio
     private readonly String name;
     private readonly UInt64 id;
 
-    private ArrayList nodePropertyValues = new ArrayList();
+    private List<NodePropertyValue> nodePropertyValues = new List<NodePropertyValue>();
 
     public Node(String name)
     {
@@ -40,6 +40,11 @@ namespace MMD_Graph_Studio
       }
       ASCIIEncoding.UTF8.GetBytes(this.name, 0, this.name.Length, result, 8);
       return result;
+    }
+
+    public IReadOnlyCollection<NodePropertyValue> getNodeProperties()
+    {
+      return this.nodePropertyValues;  
     }
 
     public String GetName()

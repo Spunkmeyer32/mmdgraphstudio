@@ -151,7 +151,7 @@ namespace MMD_Graph_Studio
             fs.Write(nodeRepresentation, 0, nodeRepresentation.Length);
           }
           // Save Graph Edges
-          ArrayList edges = graphData.GetEdgesReadOnly();
+          IReadOnlyCollection<Edge> edges = graphData.GetEdgesReadOnly();
           byte[] edgecountbytes = BitConverter.GetBytes((UInt64)edges.Count);
           fs.Write(edgecountbytes, 0, 8);
           foreach (Edge edge in edges)
