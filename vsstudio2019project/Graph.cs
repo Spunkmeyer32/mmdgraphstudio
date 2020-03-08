@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
   class Graph : IDisposable
   {
@@ -97,6 +97,26 @@ namespace MMD_Graph_Studio
         this.nodeEdgesDataMutex.ReleaseMutex();
       }
       return nodeToAdd.GetID();
+    }
+
+    internal NodeProperty getProperty(string propertyName)
+    {
+      this.nodePropertiesDataMutex.WaitOne();
+      try
+      {
+        foreach(NodeProperty property in this.nodeProperties)
+        {
+          if(property.getPropertyName().Equals(propertyName))
+          {
+            return property;
+          }
+        }
+      }
+      finally
+      {
+        this.nodePropertiesDataMutex.ReleaseMutex();
+      }
+      return null;
     }
 
     public void addNewNodeProperty(NodeProperty property)

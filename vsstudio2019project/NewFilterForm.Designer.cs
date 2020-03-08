@@ -1,4 +1,4 @@
-﻿namespace MMD_Graph_Studio
+﻿namespace MMDGraphStudio
 {
   partial class NewFilterForm
   {

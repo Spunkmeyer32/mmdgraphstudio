@@ -7,7 +7,7 @@ using System.Collections;
 using System.IO;
 using System.Threading;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
   public partial class MainForm : Form
   {

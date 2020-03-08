@@ -1,4 +1,4 @@
-﻿namespace MMD_Graph_Studio
+﻿namespace MMDGraphStudio
 {
   partial class MainForm
   {
@@ -57,7 +57,7 @@
       this.panel_panelchooser = new System.Windows.Forms.Panel();
       this.panel_showview = new System.Windows.Forms.Panel();
       this.panel_showfilter = new System.Windows.Forms.Panel();
-      this.panelGraphPaint = new MMD_Graph_Studio.DoubleBufferedPanel();
+      this.panelGraphPaint = new MMDGraphStudio.DoubleBufferedPanel();
       this.label_views = new System.Windows.Forms.Label();
       this.button_NewView = new System.Windows.Forms.Button();
       this.listBox_views = new System.Windows.Forms.ListBox();
@@ -174,7 +174,7 @@
       // 
       this.button_app_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.button_app_close.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-      this.button_app_close.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_close_black_48dp;
+      this.button_app_close.BackgroundImage = global::MMDGraphStudio.Resources.baseline_close_black_48dp;
       this.button_app_close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.button_app_close.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
       this.button_app_close.FlatAppearance.BorderSize = 0;
@@ -195,7 +195,7 @@
       // 
       this.button_app_maxmize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.button_app_maxmize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-      this.button_app_maxmize.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_maximize_black_48dp;
+      this.button_app_maxmize.BackgroundImage = global::MMDGraphStudio.Resources.baseline_maximize_black_48dp;
       this.button_app_maxmize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.button_app_maxmize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
       this.button_app_maxmize.FlatAppearance.BorderSize = 0;
@@ -216,7 +216,7 @@
       // 
       this.button_app_minimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.button_app_minimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-      this.button_app_minimize.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_minimize_black_48dp;
+      this.button_app_minimize.BackgroundImage = global::MMDGraphStudio.Resources.baseline_minimize_black_48dp;
       this.button_app_minimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.button_app_minimize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
       this.button_app_minimize.FlatAppearance.BorderSize = 0;
@@ -409,7 +409,7 @@
       // panel_showview
       // 
       this.panel_showview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-      this.panel_showview.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_remove_red_eye_black_48dp;
+      this.panel_showview.BackgroundImage = global::MMDGraphStudio.Resources.baseline_remove_red_eye_black_48dp;
       this.panel_showview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.panel_showview.Location = new System.Drawing.Point(0, 64);
       this.panel_showview.Name = "panel_showview";
@@ -421,7 +421,7 @@
       // panel_showfilter
       // 
       this.panel_showfilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-      this.panel_showfilter.BackgroundImage = global::MMD_Graph_Studio.Resources.baseline_filter_list_black_48dp;
+      this.panel_showfilter.BackgroundImage = global::MMDGraphStudio.Resources.baseline_filter_list_black_48dp;
       this.panel_showfilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.panel_showfilter.Location = new System.Drawing.Point(0, 24);
       this.panel_showfilter.Name = "panel_showfilter";

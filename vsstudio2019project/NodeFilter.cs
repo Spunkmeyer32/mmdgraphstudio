@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
 
   public enum filterOperator

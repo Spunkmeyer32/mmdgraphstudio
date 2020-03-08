@@ -6,7 +6,7 @@ using MathNet.Spatial.Euclidean;
 using System.Collections.ObjectModel;
 using System.Threading;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
   class GraphView : IDisposable
   {

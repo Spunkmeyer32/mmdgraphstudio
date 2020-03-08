@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
 
   public enum NodePropertyType
@@ -15,7 +15,7 @@ namespace MMD_Graph_Studio
   }
 
   /// <summary>
-  /// Defines a property which can be used in the current graph. This class describes the property but the data is stored in <see cref="MMD_Graph_Studio.NodePropertyValue"/>.
+  /// Defines a property which can be used in the current graph. This class describes the property but the data is stored in <see cref="MMDGraphStudio.NodePropertyValue"/>.
   /// </summary>
   public class NodeProperty
   {

@@ -11,7 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0FB79E37-0AEB-4063-ACDF-2B59C56537D5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MMD_Graph_Studio</RootNamespace>
+    <RootNamespace>MMDGraphStudio</RootNamespace>
     <AssemblyName>MMD Graph Studio</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MMD_Graph_Studio.Program</StartupObject>
+    <StartupObject>MMDGraphStudio.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
@@ -126,6 +126,12 @@
     <Compile Include="NewFilterForm.Designer.cs">
       <DependentUpon>NewFilterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewPropertyValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPropertyValue.Designer.cs">
+      <DependentUpon>NewPropertyValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewPropertyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     <EmbeddedResource Include="NewFilterForm.resx">
       <DependentUpon>NewFilterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewPropertyValue.resx">
+      <DependentUpon>NewPropertyValue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewPropertyForm.resx">
       <DependentUpon>NewPropertyForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +175,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

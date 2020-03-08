@@ -1,6 +1,6 @@
 ﻿namespace MMDGraphStudio
 {
-  partial class NewPropertyForm
+  partial class NewPropertyValue
   {
     /// <summary>
     /// Required designer variable.
@@ -30,12 +30,11 @@
     {
       this.button_propertycancel = new System.Windows.Forms.Button();
       this.button_propertysave = new System.Windows.Forms.Button();
-      this.comboBox_proptype = new System.Windows.Forms.ComboBox();
       this.textBox_Propertyname = new System.Windows.Forms.TextBox();
-      this.textBox_enumvalues = new System.Windows.Forms.TextBox();
       this.label_propertyname = new System.Windows.Forms.Label();
-      this.label_propertytype = new System.Windows.Forms.Label();
-      this.label_enumvalues = new System.Windows.Forms.Label();
+      this.textBox_PropertyText = new System.Windows.Forms.TextBox();
+      this.comboBox_PropertySelection = new System.Windows.Forms.ComboBox();
+      this.textBox_numbervalue = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // button_propertycancel
@@ -66,38 +65,14 @@
       this.button_propertysave.UseVisualStyleBackColor = false;
       this.button_propertysave.Click += new System.EventHandler(this.button_propertysave_Click);
       // 
-      // comboBox_proptype
-      // 
-      this.comboBox_proptype.FormattingEnabled = true;
-      this.comboBox_proptype.Items.AddRange(new object[] {
-            "Text",
-            "Number",
-            "Selectionlist"});
-      this.comboBox_proptype.Location = new System.Drawing.Point(236, 34);
-      this.comboBox_proptype.Name = "comboBox_proptype";
-      this.comboBox_proptype.Size = new System.Drawing.Size(163, 25);
-      this.comboBox_proptype.TabIndex = 14;
-      this.comboBox_proptype.Text = "Text";
-      this.comboBox_proptype.SelectedIndexChanged += new System.EventHandler(this.comboBox_proptype_SelectedIndexChanged);
-      // 
       // textBox_Propertyname
       // 
       this.textBox_Propertyname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.textBox_Propertyname.Enabled = false;
       this.textBox_Propertyname.Location = new System.Drawing.Point(12, 34);
       this.textBox_Propertyname.Name = "textBox_Propertyname";
       this.textBox_Propertyname.Size = new System.Drawing.Size(218, 24);
       this.textBox_Propertyname.TabIndex = 15;
-      // 
-      // textBox_enumvalues
-      // 
-      this.textBox_enumvalues.BackColor = System.Drawing.Color.LightGray;
-      this.textBox_enumvalues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.textBox_enumvalues.Enabled = false;
-      this.textBox_enumvalues.Location = new System.Drawing.Point(405, 34);
-      this.textBox_enumvalues.Multiline = true;
-      this.textBox_enumvalues.Name = "textBox_enumvalues";
-      this.textBox_enumvalues.Size = new System.Drawing.Size(201, 131);
-      this.textBox_enumvalues.TabIndex = 16;
       // 
       // label_propertyname
       // 
@@ -108,37 +83,41 @@
       this.label_propertyname.TabIndex = 17;
       this.label_propertyname.Text = "Propertyname:";
       // 
-      // label_propertytype
+      // textBox_PropertyText
       // 
-      this.label_propertytype.AutoSize = true;
-      this.label_propertytype.Location = new System.Drawing.Point(233, 14);
-      this.label_propertytype.Name = "label_propertytype";
-      this.label_propertytype.Size = new System.Drawing.Size(81, 17);
-      this.label_propertytype.TabIndex = 18;
-      this.label_propertytype.Text = "Propertytype:";
+      this.textBox_PropertyText.Location = new System.Drawing.Point(236, 95);
+      this.textBox_PropertyText.Multiline = true;
+      this.textBox_PropertyText.Name = "textBox_PropertyText";
+      this.textBox_PropertyText.Size = new System.Drawing.Size(370, 70);
+      this.textBox_PropertyText.TabIndex = 18;
       // 
-      // label_enumvalues
+      // comboBox_PropertySelection
       // 
-      this.label_enumvalues.AutoSize = true;
-      this.label_enumvalues.Location = new System.Drawing.Point(402, 14);
-      this.label_enumvalues.Name = "label_enumvalues";
-      this.label_enumvalues.Size = new System.Drawing.Size(128, 17);
-      this.label_enumvalues.TabIndex = 19;
-      this.label_enumvalues.Text = "Selection (line by line):";
+      this.comboBox_PropertySelection.FormattingEnabled = true;
+      this.comboBox_PropertySelection.Location = new System.Drawing.Point(236, 33);
+      this.comboBox_PropertySelection.Name = "comboBox_PropertySelection";
+      this.comboBox_PropertySelection.Size = new System.Drawing.Size(370, 25);
+      this.comboBox_PropertySelection.TabIndex = 20;
       // 
-      // NewPropertyForm
+      // textBox_numbervalue
+      // 
+      this.textBox_numbervalue.Location = new System.Drawing.Point(236, 65);
+      this.textBox_numbervalue.Name = "textBox_numbervalue";
+      this.textBox_numbervalue.Size = new System.Drawing.Size(370, 24);
+      this.textBox_numbervalue.TabIndex = 21;
+      // 
+      // NewPropertyValue
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-      this.ClientSize = new System.Drawing.Size(619, 232);
+      this.ClientSize = new System.Drawing.Size(619, 227);
       this.ControlBox = false;
-      this.Controls.Add(this.label_enumvalues);
-      this.Controls.Add(this.label_propertytype);
+      this.Controls.Add(this.textBox_numbervalue);
+      this.Controls.Add(this.comboBox_PropertySelection);
+      this.Controls.Add(this.textBox_PropertyText);
       this.Controls.Add(this.label_propertyname);
-      this.Controls.Add(this.textBox_enumvalues);
       this.Controls.Add(this.textBox_Propertyname);
-      this.Controls.Add(this.comboBox_proptype);
       this.Controls.Add(this.button_propertycancel);
       this.Controls.Add(this.button_propertysave);
       this.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -146,23 +125,22 @@
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.MaximizeBox = false;
-      this.Name = "NewPropertyForm";
+      this.Name = "NewPropertyValue";
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
-      this.Text = "New element property";
+      this.Text = "Property Value";
       this.ResumeLayout(false);
       this.PerformLayout();
 
     }
 
-        #endregion
-        private System.Windows.Forms.Button button_propertycancel;
-        private System.Windows.Forms.Button button_propertysave;
-        private System.Windows.Forms.ComboBox comboBox_proptype;
-        private System.Windows.Forms.TextBox textBox_Propertyname;
-        private System.Windows.Forms.TextBox textBox_enumvalues;
-        private System.Windows.Forms.Label label_propertyname;
-        private System.Windows.Forms.Label label_propertytype;
-        private System.Windows.Forms.Label label_enumvalues;
-    }
+    #endregion
+    private System.Windows.Forms.Button button_propertycancel;
+    private System.Windows.Forms.Button button_propertysave;
+    private System.Windows.Forms.TextBox textBox_Propertyname;
+    private System.Windows.Forms.Label label_propertyname;
+    private System.Windows.Forms.TextBox textBox_PropertyText;
+    private System.Windows.Forms.ComboBox comboBox_PropertySelection;
+    private System.Windows.Forms.TextBox textBox_numbervalue;
+  }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
   public partial class NewPropertyForm : Form
   {
@@ -43,22 +43,40 @@ namespace MMD_Graph_Studio
       return true;
     }
 
+    private bool isSelectionListValid()
+    {
+      if (this.textBox_enumvalues.Text.Trim().Length == 0)
+      {
+        MessageBox.Show("Selection-List contains no Elements", "Property selectionlist error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return false;
+      }
+      return true;
+    }
+
     private void button_propertysave_Click(object sender, EventArgs e)
     {
-      if (this.isNameValid())
+      if (!this.isNameValid())
       {
-        this.Close();
+        return;
       }
+      if (this.comboBox_proptype.Text.Equals("Selectionlist"))
+      {
+        if (!this.isSelectionListValid())
+        {
+          return;
+        }
+      }
+      this.Close();
     }
 
     public NodeProperty getNodeProperty()
     {
-      if(!this.isNameValid())
+      if (!this.isNameValid())
       {
         return null;
       }
       NodePropertyType newPropertyType = NodePropertyType.text;
-      switch(this.comboBox_proptype.Text.Trim())
+      switch (this.comboBox_proptype.Text.Trim())
       {
         case "Text":
           newPropertyType = NodePropertyType.text;
@@ -73,7 +91,29 @@ namespace MMD_Graph_Studio
           MessageBox.Show("Property-Type " + this.comboBox_proptype.Text.Trim() + " not valid", "Property type error", MessageBoxButtons.OK, MessageBoxIcon.Error);
           return null;
       }
-      return new NodeProperty(newPropertyType, this.textBox_Propertyname.Text.Trim());
+      NodeProperty newNodeProperty = new NodeProperty(newPropertyType, this.textBox_Propertyname.Text.Trim());
+      if (newPropertyType == NodePropertyType.enumeration)
+      {
+        string[] splitstring = { "\r", "\n" };
+        string[] enumelems = this.textBox_enumvalues.Text.Split(splitstring, StringSplitOptions.RemoveEmptyEntries);
+        newNodeProperty.setEnumTypes(enumelems);
+      }
+      return newNodeProperty;
+    }
+
+    private void comboBox_proptype_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (this.comboBox_proptype.Text.Trim().Equals("Selectionlist"))
+      {
+        this.textBox_enumvalues.Enabled = true;
+        this.textBox_enumvalues.BackColor = Color.White;
+
+      }
+      else
+      {
+        this.textBox_enumvalues.Enabled = false;
+        this.textBox_enumvalues.BackColor = Color.LightGray;
+      }
     }
   }
 }

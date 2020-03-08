@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MMD_Graph_Studio
+namespace MMDGraphStudio
 {
     class DoubleBufferedPanel : Panel 
     {
