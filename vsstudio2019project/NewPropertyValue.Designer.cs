@@ -67,6 +67,7 @@
       // 
       // textBox_Propertyname
       // 
+      this.textBox_Propertyname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
       this.textBox_Propertyname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.textBox_Propertyname.Enabled = false;
       this.textBox_Propertyname.Location = new System.Drawing.Point(12, 34);

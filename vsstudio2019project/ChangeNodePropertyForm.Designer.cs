@@ -39,6 +39,7 @@
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.label_Nodename = new System.Windows.Forms.Label();
+      this.button_editgraphnodeproperty = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // listBox_graphNodeProperties
@@ -95,7 +96,7 @@
       this.button_useproperty.Location = new System.Drawing.Point(6, 361);
       this.button_useproperty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.button_useproperty.Name = "button_useproperty";
-      this.button_useproperty.Size = new System.Drawing.Size(210, 32);
+      this.button_useproperty.Size = new System.Drawing.Size(102, 32);
       this.button_useproperty.TabIndex = 15;
       this.button_useproperty.Text = "Use";
       this.button_useproperty.UseVisualStyleBackColor = false;
@@ -169,6 +170,20 @@
       this.label_Nodename.Text = "NodeName";
       this.label_Nodename.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
+      // button_editgraphnodeproperty
+      // 
+      this.button_editgraphnodeproperty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
+      this.button_editgraphnodeproperty.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.button_editgraphnodeproperty.Font = new System.Drawing.Font("Source Sans Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.button_editgraphnodeproperty.Location = new System.Drawing.Point(114, 361);
+      this.button_editgraphnodeproperty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.button_editgraphnodeproperty.Name = "button_editgraphnodeproperty";
+      this.button_editgraphnodeproperty.Size = new System.Drawing.Size(102, 32);
+      this.button_editgraphnodeproperty.TabIndex = 25;
+      this.button_editgraphnodeproperty.Text = "Edit";
+      this.button_editgraphnodeproperty.UseVisualStyleBackColor = false;
+      this.button_editgraphnodeproperty.Click += new System.EventHandler(this.button_editgraphnodeproperty_Click);
+      // 
       // ChangeNodePropertyForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -176,6 +191,7 @@
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
       this.ClientSize = new System.Drawing.Size(451, 439);
       this.ControlBox = false;
+      this.Controls.Add(this.button_editgraphnodeproperty);
       this.Controls.Add(this.label_Nodename);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
@@ -216,5 +232,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label_Nodename;
+        private System.Windows.Forms.Button button_editgraphnodeproperty;
     }
 }

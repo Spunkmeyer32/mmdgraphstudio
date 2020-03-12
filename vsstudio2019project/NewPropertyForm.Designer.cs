@@ -90,7 +90,7 @@
       // 
       // textBox_enumvalues
       // 
-      this.textBox_enumvalues.BackColor = System.Drawing.Color.LightGray;
+      this.textBox_enumvalues.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
       this.textBox_enumvalues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.textBox_enumvalues.Enabled = false;
       this.textBox_enumvalues.Location = new System.Drawing.Point(405, 34);

@@ -94,19 +94,38 @@ namespace MMDGraphStudio
 
     private void button_propertyedit_Click(object sender, EventArgs e)
     {
-      if(this.listBox_usedNodeProperties.SelectedItem == null)
+      if (this.listBox_usedNodeProperties.SelectedItem == null)
       {
         MessageBox.Show("No property to edit selected", "node property value error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         return;
       }
       NodePropertyValue propertyValue = this.nodeToEdit.getProperty(this.listBox_usedNodeProperties.SelectedItem.ToString());
-      if(propertyValue == null)
+      if (propertyValue == null)
       {
         MessageBox.Show("This property could not get loaded from element", "node property value error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         return;
       }
-      NewPropertyValue newPropertyValueForm = new NewPropertyValue( ref propertyValue);
+      NewPropertyValue newPropertyValueForm = new NewPropertyValue(ref propertyValue);
       newPropertyValueForm.ShowDialog();
+    }
+
+    private void button_editgraphnodeproperty_Click(object sender, EventArgs e)
+    {
+      if (this.listBox_graphNodeProperties.SelectedItem == null)
+      {
+        MessageBox.Show("No property to edit selected", "node property value error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+      String propertyName = this.listBox_graphNodeProperties.SelectedItem.ToString();
+      NodeProperty property = this.loadedGraph.getProperty(propertyName);
+      if (property == null)
+      {
+        MessageBox.Show("Property with name " + propertyName + " is invalid!", "node property value error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+      
+      /// TODO Check if a change is possible (based on usage)
+
     }
   }
 }

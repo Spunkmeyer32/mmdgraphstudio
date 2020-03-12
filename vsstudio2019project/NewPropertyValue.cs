@@ -26,6 +26,9 @@ namespace MMDGraphStudio
       switch(this.propertyType)
       {
         case NodePropertyType.enumeration:
+          this.textBox_PropertyText.BackColor = Color.FromArgb(90, 90, 90);
+          this.comboBox_PropertySelection.BackColor = Color.White;
+          this.textBox_numbervalue.BackColor = Color.FromArgb(90, 90, 90);
           this.textBox_PropertyText.Enabled = false;
           this.comboBox_PropertySelection.Enabled = true;
           this.textBox_numbervalue.Enabled = false;
@@ -41,6 +44,9 @@ namespace MMDGraphStudio
           }
           break;
         case NodePropertyType.number:
+          this.textBox_PropertyText.BackColor = Color.FromArgb(90, 90, 90);
+          this.comboBox_PropertySelection.BackColor = Color.FromArgb(90, 90, 90);
+          this.textBox_numbervalue.BackColor = Color.White;  
           this.textBox_PropertyText.Enabled = false;
           this.comboBox_PropertySelection.Enabled = false;
           this.textBox_numbervalue.Enabled = true;
@@ -50,6 +56,9 @@ namespace MMDGraphStudio
           }
           break;
         case NodePropertyType.text:
+          this.textBox_PropertyText.BackColor = Color.White;  
+          this.comboBox_PropertySelection.BackColor = Color.FromArgb(90, 90, 90);
+          this.textBox_numbervalue.BackColor = Color.FromArgb(90, 90, 90);
           this.textBox_PropertyText.Enabled = true;
           this.comboBox_PropertySelection.Enabled = false;
           this.textBox_numbervalue.Enabled = false;
@@ -59,6 +68,9 @@ namespace MMDGraphStudio
           }
           break;
         default:
+          this.textBox_PropertyText.BackColor = Color.FromArgb(90, 90, 90);
+          this.comboBox_PropertySelection.BackColor = Color.FromArgb(90, 90, 90);
+          this.textBox_numbervalue.BackColor = Color.FromArgb(90, 90, 90);
           this.textBox_PropertyText.Enabled = false;
           this.comboBox_PropertySelection.Enabled = false;
           this.textBox_numbervalue.Enabled = false;

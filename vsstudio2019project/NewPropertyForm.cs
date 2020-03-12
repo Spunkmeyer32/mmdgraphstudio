@@ -13,11 +13,15 @@ namespace MMDGraphStudio
   public partial class NewPropertyForm : Form
   {
     private String[] existingNames;
+    private NodeProperty existingProperty;
     public NewPropertyForm(String[] existingNames)
     {
       this.existingNames = existingNames;
       InitializeComponent();
+      this.existingProperty = null;
     }
+
+
 
     private void button_propertycancel_Click(object sender, EventArgs e)
     {
@@ -112,7 +116,7 @@ namespace MMDGraphStudio
       else
       {
         this.textBox_enumvalues.Enabled = false;
-        this.textBox_enumvalues.BackColor = Color.LightGray;
+        this.textBox_enumvalues.BackColor = Color.FromArgb(90,90,90);
       }
     }
   }
